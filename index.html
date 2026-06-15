@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legit — accountable identity for AI agents</title>
+<meta name="description" content="A verified human at the root, a real LLC your agent operates as, and an accountable pass to the open web. Shielded, not hidden. Join the early-access waitlist." />
+<meta name="robots" content="index,follow" />
+<meta property="og:title" content="Legit — accountable identity for AI agents" />
+<meta property="og:description" content="Shielded, not hidden. Accountable, not anonymous. Early access opening soon." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0A0E17;--bg2:#0F1420;--ink:#EAEEF5;--dim:#8B94A8;--faint:#586173;
+    --verify:#4D8DFF;--verify-deep:#1F5FCC;--verified:#2BD46A;
+    --line:rgba(234,238,245,.10);--line2:rgba(234,238,245,.20);
+    --display:'Sora',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--display);
+    -webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+  body::before{content:"";position:fixed;top:-20%;left:50%;transform:translateX(-50%);
+    width:1000px;height:680px;background:radial-gradient(ellipse at center,rgba(77,141,255,.12),transparent 65%);pointer-events:none;z-index:0}
+  .wrap{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 22px}
+  .badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--verify);
+    border:1px solid rgba(77,141,255,.35);background:rgba(77,141,255,.08);border-radius:999px;padding:7px 16px;margin-bottom:34px;display:inline-flex;align-items:center;gap:9px}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 0 0 rgba(77,141,255,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(77,141,255,.5)}70%{box-shadow:0 0 0 8px rgba(77,141,255,0)}100%{box-shadow:0 0 0 0 rgba(77,141,255,0)}}
+  .brand{display:flex;align-items:center;gap:13px;margin-bottom:30px}
+  .seal{width:44px;height:44px;border-radius:50%;border:2px solid var(--verify);display:flex;align-items:center;justify-content:center;color:var(--verify);font-weight:800;font-size:1.1rem}
+  .brand b{font-family:var(--display);font-weight:800;font-size:2.1rem;letter-spacing:-.02em}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5.2vw,3.4rem);line-height:1.08;letter-spacing:-.03em;max-width:16ch;margin-bottom:22px}
+  h1 .v{color:var(--verify)}
+  .sub{font-size:clamp(1.02rem,1.7vw,1.18rem);color:var(--dim);line-height:1.65;max-width:42ch;margin-bottom:14px}
+  .sub strong{color:var(--ink);font-weight:600}
+  .doctrine{font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--faint);margin-bottom:38px}
+  form{display:flex;gap:10px;width:100%;max-width:440px}
+  input[type=email]{flex:1;background:var(--bg2);border:1.5px solid var(--line2);border-radius:11px;
+    padding:14px 16px;color:var(--ink);font-family:var(--display);font-size:1rem}
+  input[type=email]:focus{outline:none;border-color:var(--verify)}
+  button{font-family:var(--display);font-weight:700;font-size:1rem;border:none;cursor:pointer;border-radius:11px;
+    padding:14px 22px;background:var(--verify);color:#04101f;transition:transform .15s,background .15s;white-space:nowrap}
+  button:hover{transform:translateY(-2px);background:#69a0ff}
+  .ok{display:none;align-items:center;gap:10px;font-family:var(--mono);font-size:.95rem;color:var(--verified);
+    background:rgba(43,212,106,.1);border:1px solid rgba(43,212,106,.35);border-radius:11px;padding:14px 20px;max-width:440px}
+  .ok.show{display:inline-flex}
+  .fine{font-family:var(--mono);font-size:.74rem;color:var(--faint);margin-top:16px}
+  .trust{display:flex;gap:10px 22px;flex-wrap:wrap;justify-content:center;margin-top:40px;font-family:var(--mono);font-size:.76rem;color:var(--faint)}
+  .trust span{display:flex;align-items:center;gap:8px}
+  .trust span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--verify-deep)}
+  footer{position:relative;z-index:1;text-align:center;padding:26px;font-family:var(--mono);font-size:.72rem;color:var(--faint);border-top:1px solid var(--line)}
+  footer a{color:var(--dim);text-decoration:none}footer a:hover{color:var(--ink)}
+  @media(max-width:520px){form{flex-direction:column}}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <span class="badge"><span class="dot"></span>Private beta · early access</span>
+    <div class="brand"><span class="seal">✓</span><b>Legit</b></div>
+    <h1>Accountable identity for your <span class="v">AI agent</span>.</h1>
+    <p class="sub">A <strong>verified human</strong> at the root, a real <strong>LLC</strong> your agent operates as, and an accountable <strong>pass to the open web</strong> — so it's recognized, not blocked.</p>
+    <p class="doctrine">Shielded, not hidden. Accountable, not anonymous.</p>
+
+    <form id="wl" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email" autocomplete="email" />
+      <button type="submit">Join the waitlist →</button>
+    </form>
+    <div class="ok" id="ok"><span>✓</span><span>You're on the list — we'll be in touch.</span></div>
+    <p class="fine">No spam. One note when early access opens.</p>
+
+    <div class="trust">
+      <span>Identity by Persona</span>
+      <span>Web Bot Auth standard</span>
+      <span>Delaware Series LLC</span>
+    </div>
+  </main>
+  <footer>© 2026 Legit · <a href="mailto:hello@getlegit.com">hello@getlegit.com</a></footer>
+
+<script>
+(function(){
+  var f=document.getElementById('wl'), ok=document.getElementById('ok');
+  f.addEventListener('submit', async function(e){
+    var configured = f.action.indexOf('YOUR_FORM_ID')===-1;  // becomes true once a real Formspree/endpoint is set
+    if(!configured){
+      e.preventDefault();                                    // graceful: no endpoint wired yet
+      f.style.display='none'; ok.classList.add('show'); return;
+    }
+    e.preventDefault();
+    try{
+      var r=await fetch(f.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});
+      if(r.ok){ f.style.display='none'; ok.classList.add('show'); }
+      else f.submit();
+    }catch(_){ f.submit(); }
+  });
+})();
+</script>
+</body>
+</html>
