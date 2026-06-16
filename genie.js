@@ -45,6 +45,13 @@
     if (html != null) e.innerHTML = html;
     return e;
   }
+  // Only allow safe, mostly-internal link targets. Anything odd (javascript:,
+  // data:, vbscript:, or a backend-supplied off-pattern URL) collapses to ACCESS.
+  function safeHref(u) {
+    u = String(u == null ? "" : u).trim();
+    if (/^(javascript|data|vbscript):/i.test(u)) return ACCESS;
+    return /^(https?:\/\/|\/|#|\.\.?\/)/i.test(u) ? u : ACCESS;
+  }
 
   // ── the read/quote-only tools (deterministic; no PII, no side effects) ──────
   var TOOLS = {
@@ -58,7 +65,8 @@
       else if (after) name = after[1];
       else name = s.replace(/^(my )?(company|business|it|entity|llc)\s*(is|will be|called|named)?\s*/i, "");
       name = name.replace(/["“”']/g, "").replace(/[?.!]+$/, "").replace(/\s+/g, " ").trim();
-      if (!name) return { ok: false, ask: "What would you like the company called?" };
+      if (!name || !/[A-Za-z]/.test(name) || /^(of|the|a|an|my|your|his|her|their|buy|sell|employee|to|for|in|on|it|this|that|do|does|can|i)\b/i.test(name))
+        return { ok: false, ask: "What would you like the company called? (e.g. “Orion Labs”)" };
       var flags = [];
       var hasBad = /[^A-Za-z0-9 ,.&'\-]/.test(name);
       if (hasBad) flags.push("Some characters (emoji, symbols) don't survive state filings or EIN systems — plain letters, numbers, & . , - ' are safest.");
@@ -205,8 +213,9 @@
     var flags = r.flags.length ? '<p class="lg-candor">⚠ ' + r.flags.map(esc).join("<br>⚠ ") + "</p>" : "";
     var suff = r.suggested !== r.name ? "<br>I'd file it as <b>" + esc(r.suggested) + "</b>." : "";
     return {
+      // No CTA here: a name check never reserves/forms. The hand-off card below
+      // supplies the single, correctly-framed "Continue — you sign off →" button.
       html: "<b>" + esc(r.name) + "</b> — " + (r.ein_safe ? "looks EIN-safe ✓" : "needs a tweak") + "." + suff + flags + '<p class="lg-candor">' + esc(r.candor) + "</p>",
-      cta: { label: "Reserve & form →", href: ACCESS },
       handoff: true,
       handoffName: r.suggested,
       disclaimer: true,
@@ -236,8 +245,8 @@
     { re: /\b(cost|price|pricing|how much|fee|cheap|expensive|\$)\b/i, fn: rQuote },
     { re: /\b(start|form|create|sign ?up|get (started|going)|begin|go ahead|let'?s do|i'?m ready)\b/i, fn: function () { return rHandoff(null); } },
     { re: /\b(hi|hey|hello|help|what can you|who are you)\b/i, fn: rIntro },
-    // a name-check if it looks like "call it X" / "name: X" / quoted
-    { re: /\b(call(ed)? it|name it|named|the name|company name)\b|["“][^"”]{2,}["”]/i, fn: function (q) { return rName(q); } },
+    // a name-check only on an explicit naming verb next to a candidate, or a quoted phrase
+    { re: /\b(?:call(?:ed)? it|name it|company (?:is )?(?:named|called)|the name is|company name is)\s+\S|["“][^"”]{2,}["”]/i, fn: function (q) { return rName(q); } },
   ];
 
   var SEEDS = [
@@ -266,7 +275,7 @@
     ".lg-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line,rgba(234,238,245,.10));background:var(--bg3,#141B2A)}",
     ".lg-seal{width:24px;height:24px;border-radius:50%;border:2px solid var(--verify,#4D8DFF);display:flex;align-items:center;justify-content:center;color:var(--verify,#4D8DFF);font-size:12px;font-weight:800;flex:none}",
     ".lg-head h4{font-family:var(--display,inherit);font-weight:700;font-size:15px;margin:0;letter-spacing:-.01em}",
-    ".lg-head .lg-sub{font-family:var(--mono,monospace);font-size:10px;color:var(--faint,#586173);letter-spacing:.04em;margin-top:1px}",
+    ".lg-head .lg-sub{font-family:var(--mono,monospace);font-size:10.5px;color:var(--dim,#8B94A8);letter-spacing:.04em;margin-top:1px}",
     ".lg-x{margin-left:auto;background:none;border:none;color:var(--dim,#8B94A8);font-size:20px;cursor:pointer;line-height:1;padding:4px 6px;border-radius:8px}",
     ".lg-x:hover{color:var(--ink,#fff);background:var(--line,rgba(234,238,245,.10))}",
     ".lg-stream{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}",
@@ -290,7 +299,7 @@
     ".lg-handoff h5{margin:0 0 4px;font-family:var(--display,inherit);font-size:14px;font-weight:700}",
     ".lg-handoff .lg-flow{font-family:var(--mono,monospace);font-size:11px;color:var(--dim,#8B94A8);margin:8px 0 10px;line-height:1.7}",
     ".lg-handoff .lg-flow b{color:var(--verified,#2BD46A)}",
-    ".lg-disc{font-family:var(--mono,monospace);font-size:10px;color:var(--faint,#586173);margin-top:6px}",
+    ".lg-disc{font-family:var(--mono,monospace);font-size:11px;color:var(--dim,#8B94A8);margin-top:6px}",
     ".lg-seeds{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 12px}",
     ".lg-chip{font-size:12px;color:var(--ink,#EAEEF5);background:var(--bg,#0A0E17);border:1px solid var(--line2,rgba(234,238,245,.18));border-radius:999px;padding:7px 11px;cursor:pointer;transition:border-color .15s,color .15s}",
     ".lg-chip:hover{border-color:var(--verify,#4D8DFF);color:var(--verify,#4D8DFF)}",
@@ -304,27 +313,34 @@
     ".lg-typing i:nth-child(2){animation-delay:.15s}.lg-typing i:nth-child(3){animation-delay:.3s}",
     "@keyframes lg-bounce{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}",
     "@media(max-width:520px){.lg-panel{right:0;bottom:0;width:100vw;height:88vh;border-radius:18px 18px 0 0}.lg-fab{right:14px;bottom:14px}}",
+    "@media(prefers-reduced-motion:reduce){.lg-panel.lg-open{animation:none}.lg-typing i{animation:none;opacity:.6}.lg-fab,.lg-chip,.lg-x{transition:none}.lg-fab:hover{transform:none}}",
   ].join("\n");
 
   // ── DOM build ────────────────────────────────────────────────────────────
-  var panel, stream, seedsRow, input, sendBtn, opened = false, busy = false;
+  var fab, panel, stream, seedsRow, input, sendBtn, opened = false, busy = false, lastFocus = null;
 
   function mount() {
     var style = el("style"); style.textContent = CSS; document.head.appendChild(style);
 
-    var fab = el("button", "lg-fab");
+    fab = el("button", "lg-fab");
     fab.type = "button";
+    fab.id = "lg-fab";
     fab.setAttribute("aria-label", "Open Ask Legit");
-    fab.innerHTML = '<span class="lg-spark">✦</span> Ask Legit';
+    fab.setAttribute("aria-haspopup", "dialog");
+    fab.setAttribute("aria-expanded", "false");
+    fab.setAttribute("aria-controls", "lg-panel");
+    fab.innerHTML = '<span class="lg-spark" aria-hidden="true">✦</span> Ask Legit';
     fab.addEventListener("click", toggle);
     document.body.appendChild(fab);
 
     panel = el("div", "lg-panel");
+    panel.id = "lg-panel";
     panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
     panel.setAttribute("aria-label", "Ask Legit");
     panel.innerHTML =
-      '<div class="lg-head"><span class="lg-seal">✓</span><div><h4>Ask Legit</h4><div class="lg-sub">pre-auth helper · a human signs anything real</div></div><button class="lg-x" type="button" aria-label="Close">×</button></div>' +
-      '<div class="lg-stream" aria-live="polite"></div>' +
+      '<div class="lg-head"><span class="lg-seal" aria-hidden="true">✓</span><div><h4>Ask Legit</h4><div class="lg-sub">pre-auth helper · a human signs anything real</div></div><button class="lg-x" type="button" aria-label="Close Ask Legit">×</button></div>' +
+      '<div class="lg-stream"></div>' +
       '<div class="lg-seeds"></div>' +
       '<div class="lg-input"><input type="text" placeholder="Ask about cost, EIN, agents…" aria-label="Ask Legit a question" autocomplete="off"><button class="lg-send" type="button" aria-label="Send">→</button></div>';
     document.body.appendChild(panel);
@@ -337,11 +353,12 @@
     sendBtn.addEventListener("click", function () { submit(input.value); });
     input.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(input.value); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && opened) toggle(); });
+    panel.addEventListener("keydown", trapTab);
 
     SEEDS.forEach(function (s) {
       var chip = el("button", "lg-chip", esc(s.label));
       chip.type = "button";
-      chip.addEventListener("click", function () { pushMe(s.label); think(function () { render(s.fn(s.label)); }); });
+      chip.addEventListener("click", function () { if (busy) return; pushMe(s.label); think(function () { render(s.fn(s.label)); }); });
       seedsRow.appendChild(chip);
     });
 
@@ -350,10 +367,30 @@
     track("genie_loaded");
   }
 
+  // keep Tab within the open dialog
+  function trapTab(e) {
+    if (e.key !== "Tab" || !opened) return;
+    var f = panel.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
   function toggle() {
     opened = !opened;
     panel.classList.toggle("lg-open", opened);
-    if (opened) { setTimeout(function () { input.focus(); }, 60); track("genie_open"); }
+    fab.setAttribute("aria-expanded", String(opened));
+    fab.setAttribute("aria-label", opened ? "Close Ask Legit" : "Open Ask Legit");
+    fab.setAttribute("aria-hidden", String(opened));
+    fab.tabIndex = opened ? -1 : 0;
+    if (opened) {
+      lastFocus = document.activeElement;
+      setTimeout(function () { input.focus(); }, 60);
+      track("genie_open");
+    } else {
+      (lastFocus && lastFocus.focus ? lastFocus : fab).focus();
+    }
   }
 
   function pushMe(text) {
@@ -362,6 +399,8 @@
   }
   function pushBot(html) {
     var m = el("div", "lg-msg lg-bot", html);
+    m.setAttribute("role", "status");
+    m.setAttribute("aria-live", "polite"); // announce assistant output only; user echo stays silent
     stream.appendChild(m); scrollDown(); return m;
   }
   function scrollDown() { stream.scrollTop = stream.scrollHeight; }
@@ -383,8 +422,8 @@
     }
     if (res.cta) {
       var a = el("a", "lg-cta", esc(res.cta.label));
-      a.href = res.cta.href;
-      a.addEventListener("click", function () { track("genie_cta", res.cta.href); });
+      a.href = safeHref(res.cta.href);
+      a.addEventListener("click", function () { track("genie_cta", a.href); });
       stream.appendChild(a); scrollDown();
     }
     if (res.handoff) renderHandoff(res.handoffName);
@@ -434,10 +473,10 @@
         if (reply) {
           window.__lgHist.push({ role: "assistant", content: reply });
           var m = pushBot(mdLite(reply));
-          m.appendChild(el("div", "lg-disc", "General information, not legal or tax advice."));
+          if (data.disclaimer) m.appendChild(el("div", "lg-disc", "General information, not legal or tax advice."));
         } else { render(route(text)); }
         if (data && data.handoff) renderHandoff(data.handoff.name || null);
-        else if (data && data.cta) { var a = el("a", "lg-cta", esc(data.cta.label)); a.href = data.cta.href || ACCESS; stream.appendChild(a); scrollDown(); }
+        else if (data && data.cta) { var a = el("a", "lg-cta", esc(data.cta.label)); a.href = safeHref(data.cta.href); stream.appendChild(a); scrollDown(); }
       })
       .catch(function () { render(route(text)); }); // graceful fallback to offline brain
   }
