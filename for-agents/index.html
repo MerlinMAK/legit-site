@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legit for AI Agents — verified identity, an entity, and a Web Pass</title>
+<meta name="description" content="Give your AI agent a verified human at its root, a real LLC to operate as, and an accountable Web Pass (Web Bot Auth / RFC 9421) so it's recognized, not blocked. Via API or MCP." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0A0E17;--bg2:#0F1420;--bg3:#141B2A;--ink:#EAEEF5;--dim:#8B94A8;--faint:#586173;--verify:#4D8DFF;--verify-deep:#1F5FCC;--verified:#2BD46A;--line:rgba(234,238,245,.10);--line2:rgba(234,238,245,.18);--display:'Sora',system-ui,sans-serif;--body:'IBM Plex Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;--maxw:1000px}
+  *{box-sizing:border-box;margin:0;padding:0}a{color:inherit;text-decoration:none}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,14,23,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+  .seal{width:25px;height:25px;border-radius:50%;border:2px solid var(--verify);display:flex;align-items:center;justify-content:center;color:var(--verify);font-size:.7rem;font-weight:800}
+  .nav-links{display:flex;align-items:center;gap:24px;font-size:.93rem;color:var(--dim)}.nav-links a:hover{color:var(--ink)}
+  .btn{font-weight:600;font-size:.95rem;border-radius:10px;padding:11px 20px;display:inline-flex;align-items:center;gap:.5ch;transition:transform .15s,background .15s}
+  .btn-primary{background:var(--verify);color:#04101f}.btn-primary:hover{transform:translateY(-2px);background:#69a0ff}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}.btn-ghost:hover{border-color:var(--verify);color:var(--verify)}
+  .btn-sm{padding:9px 16px;font-size:.9rem}
+  .hero{padding:clamp(56px,8vw,96px) 0 clamp(36px,5vw,60px);position:relative}
+  .hero::before{content:"";position:absolute;top:-12%;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse,rgba(77,141,255,.13),transparent 64%);pointer-events:none}
+  .eyebrow{position:relative;font-family:var(--mono);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--verify);margin-bottom:20px;display:inline-block}
+  h1{position:relative;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:1.04;letter-spacing:-.035em;margin-bottom:20px;max-width:18ch}
+  h1 .v{color:var(--verify)}
+  .lead{position:relative;font-size:clamp(1.04rem,1.6vw,1.2rem);color:var(--dim);max-width:48ch;margin-bottom:28px}.lead strong{color:var(--ink);font-weight:600}
+  .cta{position:relative;display:flex;gap:12px;flex-wrap:wrap}
+  .sec{padding:clamp(40px,6vw,68px) 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.02em;margin-bottom:28px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card h3{font-family:var(--display);font-weight:600;font-size:1.12rem;margin-bottom:6px}.card p{color:var(--dim);font-size:.94rem}
+  .code{background:#0B1120;border:1px solid var(--line2);border-radius:13px;overflow:hidden;margin-top:8px}
+  .code-top{padding:11px 15px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+  pre{margin:0;padding:16px 18px;font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--dim);overflow-x:auto}
+  pre .k{color:#69a0ff}pre .s{color:var(--verified)}pre .c{color:var(--faint)}
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--faint);font-family:var(--mono);font-size:.78rem;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.foot a{color:var(--dim)}.foot a:hover{color:var(--ink)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.nav-links a:not(.btn){display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav"><a class="brand" href="../"><span class="seal">✓</span>Legit</a>
+  <div class="nav-links"><a href="../for-enterprise/">Enterprise</a><a href="../for-partners/">Partners</a><a href="#" class="btn btn-primary btn-sm">Get early access</a></div>
+</div></nav>
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Legit for AI Agents</span>
+  <h1>Identity infrastructure for your <span class="v">AI agent</span>.</h1>
+  <p class="lead">A <strong>verified human at the root</strong>, a real <strong>LLC to operate as</strong>, and an accountable <strong>Web Pass</strong> (Web Bot Auth / RFC 9421) so your agent is recognized — not blocked as a bot. Drive it by <strong>API or MCP</strong>; a human authorizes anything irreversible.</p>
+  <div class="cta"><a href="#" class="btn btn-primary">Get early access →</a><a href="../" class="btn btn-ghost">Read the docs</a></div>
+</div></header>
+<section class="sec"><div class="wrap">
+  <h2>What your agent gets</h2>
+  <div class="grid">
+    <div class="card"><h3>A verified human root</h3><p>KYC-grade identity anchors every agent to an accountable person — anonymous to the public, disclosed only on valid legal process.</p></div>
+    <div class="card"><h3>An entity to operate as</h3><p>A real liability-contained LLC the agent acts as — its footprint attaches to the company, not your personal name.</p></div>
+    <div class="card"><h3>An accountable Web Pass</h3><p>Cryptographically signed requests (RFC 9421) so platforms recognize your agent instead of serving it a CAPTCHA.</p></div>
+    <div class="card"><h3>A kill switch</h3><p>Revoke any agent's credential instantly. Agent-assisted, human-authorized — nothing irreversible happens without you.</p></div>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <h2>One call, via API or MCP</h2>
+  <div class="code"><div class="code-top">agent.ts</div>
+<pre><span class="c">// reserve + prepare; a human authorizes the identity step</span>
+<span class="k">const</span> co = <span class="k">await</span> legit.entities.create({ type:<span class="s">"series"</span>, owner:{ verify:<span class="s">"persona"</span> } });
+<span class="k">const</span> pass = <span class="k">await</span> legit.webpass.sign({ entity: co.id, url:<span class="s">"https://shop.example.com/cart"</span> });
+<span class="c">// → Signature-Agent / Signature-Input / Signature (Ed25519, RFC 9421)</span>
+</pre></div>
+  <p style="color:var(--dim);font-family:var(--mono);font-size:.78rem;margin-top:12px">Also available as an MCP server — point your agent at it and it runs the flow, pausing at the human gate.</p>
+</div></section>
+<footer><div class="wrap foot"><span>© 2026 Legit · for AI agents</span><span><a href="../for-enterprise/">Enterprise</a> · <a href="../for-partners/">Partners</a> · <a href="../">Home</a></span></div></footer>
+</body>
+</html>
