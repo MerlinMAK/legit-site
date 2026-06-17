@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Try Legit — issue an accountable agent identity, in your browser</title>
+<meta name="description" content="A live sandbox: issue an accountable operator credential for an AI agent, have a human authorize an action, and verify the signed receipt offline — with real cryptography, right in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#080B12;--bg2:#0E131D;--bg3:#151B28;--ink:#EDF1F7;--dim:#8A94A8;--faint:#5A6478;--verify:#4D8DFF;--verify2:#2B6CE6;--verified:#34D399;--bad:#E0703A;--seal:#E0A458;--line:rgba(237,241,247,.08);--line2:rgba(237,241,247,.16);--display:'Sora',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;--maxw:760px}
+  *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  nav{border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:1.2rem}
+  .seal{width:24px;height:24px;border-radius:7px;background:linear-gradient(150deg,var(--verify),var(--verify2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.74rem;font-weight:800}
+  .nav a.back{font-family:var(--mono);font-size:.8rem;color:var(--dim)}.nav a.back:hover{color:var(--ink)}
+  header{padding:40px 0 14px;text-align:center}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verify);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,4.4vw,2.5rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:12px}
+  .sub{color:var(--dim);max-width:48ch;margin:0 auto}
+  .sandbox-note{font-family:var(--mono);font-size:.72rem;color:var(--seal);border:1px solid rgba(224,164,88,.3);background:rgba(224,164,88,.06);border-radius:10px;padding:9px 13px;margin:18px auto 0;max-width:50ch}
+  .step{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px;opacity:1;transition:opacity .3s}
+  .step.locked{opacity:.4;pointer-events:none}
+  .step-n{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--verify);margin-bottom:6px}
+  .step h2{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:6px}
+  .step p.lead{color:var(--dim);font-size:.93rem;margin-bottom:16px}
+  label{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin:12px 0 6px}
+  input,select{width:100%;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--body);font-size:1rem}
+  input:focus,select:focus{outline:none;border-color:var(--verify)}
+  .btn{font-family:var(--body);font-weight:600;font-size:.95rem;border:none;cursor:pointer;border-radius:10px;padding:12px 20px;display:inline-flex;align-items:center;gap:.5ch;transition:transform .15s}
+  .btn-primary{background:linear-gradient(180deg,var(--verify),var(--verify2));color:#fff}.btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}.btn-ghost:hover{border-color:var(--verify)}
+  .btn-bad{background:transparent;color:var(--bad);border:1px solid rgba(224,112,58,.4)}
+  .btn:disabled{opacity:.5;cursor:default;transform:none}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  /* credential card */
+  .cred{border-radius:14px;padding:1.5px;background:linear-gradient(150deg,rgba(77,141,255,.5),rgba(52,211,153,.32) 60%,rgba(224,164,88,.28));margin-top:16px}
+  .cred-in{background:linear-gradient(168deg,var(--bg3),var(--bg2) 75%,#0b0f17);border-radius:12.5px;padding:18px}
+  .cred-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+  .cred-brand{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--faint);line-height:1.6}.cred-brand b{display:block;font-family:var(--display);font-size:.92rem;color:var(--ink)}
+  .cred-status{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--verified);border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);border-radius:100px;padding:4px 9px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:.82rem}.row:last-child{border-bottom:none}
+  .row .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;color:var(--faint);text-transform:uppercase}
+  .row .vv{font-family:var(--mono);font-size:.76rem;color:var(--ink);text-align:right;word-break:break-all;max-width:62%}.row .ok{color:var(--verified)}.row .priv{color:var(--faint)}
+  /* consent box */
+  .consent{background:#0B1120;border:1px solid var(--line2);border-radius:12px;padding:16px;margin-top:14px}
+  .consent .who{font-family:var(--mono);font-size:.72rem;color:var(--faint);margin-bottom:8px}
+  .consent .what{font-family:var(--display);font-weight:600;font-size:1.1rem;color:var(--ink)}
+  .consent .hash{font-family:var(--mono);font-size:.68rem;color:var(--faint);margin-top:8px;word-break:break-all}
+  /* receipt / result */
+  pre{background:#0B1120;border:1px solid var(--line);border-radius:11px;padding:14px;font-family:var(--mono);font-size:.74rem;line-height:1.65;color:var(--dim);overflow-x:auto;margin-top:14px;white-space:pre-wrap;word-break:break-word}
+  .result{margin-top:14px;border-radius:11px;padding:14px 16px;font-family:var(--mono);font-size:.84rem;border:1px solid var(--line)}
+  .result.good{color:var(--verified);background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.35)}
+  .result.fail{color:var(--bad);background:rgba(224,112,58,.07);border-color:rgba(224,112,58,.4)}
+  .result b{display:block;font-size:.95rem;margin-bottom:4px}
+  .muted{font-family:var(--mono);font-size:.72rem;color:var(--faint);margin-top:10px}
+  footer{border-top:1px solid var(--line);margin-top:34px;padding:26px 0 40px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:.74rem;line-height:1.7}
+  footer a{color:var(--verify)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="nav"><a class="brand" href="../"><span class="seal">✓</span>Legit</a><a class="back" href="../">← back to legit</a></div></nav>
+
+<header class="wrap">
+  <div class="eyebrow">Live sandbox</div>
+  <h1>Issue an accountable agent identity — and prove it.</h1>
+  <p class="sub">Do the real thing yourself, in your browser: give an agent an accountable operator credential, have a human authorize an action, and verify the signed receipt offline. Real cryptography — no sign-up, no backend.</p>
+  <div class="sandbox-note">⚠ Sandbox: the <b>cryptography is real</b> (keys, signatures, offline verification all run live in your browser). Formation &amp; KYC are <b>simulated</b> — the real serveable entity + verified human is the pilot.</div>
+</header>
+
+<main class="wrap">
+
+  <!-- STEP 1 -->
+  <section class="step" id="s1">
+    <div class="step-n">Step 1 · Bind</div>
+    <h2>Give your agent an accountable identity</h2>
+    <p class="lead">An agent bound to a real entity and a verified human at the root. (We generate a real signing keypair for it, live.)</p>
+    <label for="agentName">Agent name</label>
+    <input id="agentName" placeholder="orion-7" autocomplete="off" />
+    <label for="agentDoes">What does it do?</label>
+    <input id="agentDoes" placeholder="Books travel and pays vendors" autocomplete="off" />
+    <div class="actions"><button class="btn btn-primary" id="issueBtn">Issue accountable credential →</button></div>
+    <div id="credOut"></div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step locked" id="s2">
+    <div class="step-n">Step 2 · Authorize</div>
+    <h2>Have your agent request a human approval</h2>
+    <p class="lead">For anything with weight, the agent prepares — a verified human approves. Legit renders the consent from the payload, so the agent can't show one thing and have another signed.</p>
+    <label for="action">The action the agent wants to take</label>
+    <select id="action">
+      <option value="pay|200|AdNetwork Inc|Q3 ad spend">Pay $200 to AdNetwork Inc — Q3 ad spend</option>
+      <option value="pay|1200|Acme Suppliers|net-30 invoice">Pay $1,200 to Acme Suppliers — net-30 invoice</option>
+      <option value="sign|0|Mutual NDA v3|sign a document">Sign a document — Mutual NDA v3</option>
+    </select>
+    <div class="actions"><button class="btn btn-ghost" id="reqBtn">Request approval →</button></div>
+    <div id="consentOut"></div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step locked" id="s3">
+    <div class="step-n">Step 3 · Verify</div>
+    <h2>Verify it — like your buyer would</h2>
+    <p class="lead">The receipt verifies <b>offline</b>, against the public key, with no callback and no PII. Then try to cheat it.</p>
+    <div class="actions">
+      <button class="btn btn-primary" id="verifyBtn">Verify offline →</button>
+      <button class="btn btn-bad" id="tamperBtn">Tamper: make it $9,400 →</button>
+    </div>
+    <div id="verifyOut"></div>
+  </section>
+
+</main>
+
+<footer><div class="wrap">
+  Real cryptography, simulated formation &amp; KYC. The real thing — a serveable entity + a verified human at the root — is the pilot.<br>
+  <a href="../#access">Book a 20-min demo →</a> &nbsp;·&nbsp; <a href="../">getlegit.com</a><br>
+  <span style="color:var(--faint)">Shielded, not hidden. Accountable, not anonymous. Integration, not endorsement.</span>
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var enc=new TextEncoder();
+  // deterministic canonical JSON (sorted keys) — same idea as the production relay
+  function canonical(v){ if(v===null||typeof v!=="object")return JSON.stringify(v); if(Array.isArray(v))return "["+v.map(canonical).join(",")+"]"; return "{"+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+":"+canonical(v[k]);}).join(",")+"}"; }
+  function b64(buf){ var b=new Uint8Array(buf),s=""; for(var i=0;i<b.length;i++)s+=String.fromCharCode(b[i]); return btoa(s); }
+  async function sha256hex(str){ var d=await crypto.subtle.digest("SHA-256",enc.encode(str)); return Array.from(new Uint8Array(d)).map(function(x){return x.toString(16).padStart(2,"0");}).join(""); }
+  // pick a real signature algorithm the browser supports: Ed25519 (production) else ECDSA P-256
+  var ALG=null, ALGNAME="";
+  async function genKey(){
+    try{ var kp=await crypto.subtle.generateKey({name:"Ed25519"},true,["sign","verify"]); ALG={name:"Ed25519"};ALGNAME="Ed25519"; return kp; }
+    catch(e){ var kp2=await crypto.subtle.generateKey({name:"ECDSA",namedCurve:"P-256"},true,["sign","verify"]); ALG={name:"ECDSA",hash:"SHA-256"};ALGNAME="ECDSA P-256"; return kp2; }
+  }
+  function signParams(){ return ALGNAME==="Ed25519"?{name:"Ed25519"}:{name:"ECDSA",hash:"SHA-256"}; }
+  async function sign(priv,str){ return b64(await crypto.subtle.sign(signParams(),priv,enc.encode(str))); }
+  async function verify(pub,str,sigb64){ var raw=Uint8Array.from(atob(sigb64),function(c){return c.charCodeAt(0);}); return crypto.subtle.verify(signParams(),pub,raw,enc.encode(str)); }
+  function rid(n){ var s=""; var a=new Uint8Array(n); crypto.getRandomValues(a); for(var i=0;i<n;i++)s+="0123456789abcdef"[a[i]&15]; return s; }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function money(a){ return "$"+Number(a).toLocaleString("en-US"); }
+  function unlock(id){ document.getElementById(id).classList.remove("locked"); document.getElementById(id).scrollIntoView({behavior:"smooth",block:"center"}); }
+
+  var ST={}; // sandbox state
+
+  // ---- Step 1: bind ----
+  document.getElementById("issueBtn").addEventListener("click", async function(){
+    var name=(document.getElementById("agentName").value||"orion-7").trim();
+    var does=(document.getElementById("agentDoes").value||"").trim();
+    var btn=this; btn.disabled=true; btn.textContent="Generating keypair…";
+    try{
+      var kp=await genKey();
+      var pubRaw=await crypto.subtle.exportKey("raw",kp.publicKey).catch(async function(){var j=await crypto.subtle.exportKey("jwk",kp.publicKey);return enc.encode(JSON.stringify(j));});
+      var keyid=(await sha256hex(b64(pubRaw))).slice(0,16);
+      var entity="LGT-"+(1000+(crypto.getRandomValues(new Uint32Array(1))[0]%9000));
+      var human_root="opref_"+rid(8); // opaque operator ref — never PII
+      var cred={ entity_id:entity, agent_name:name, agent_keyid:keyid, human_root:human_root, status:"active", standing:"good", alg:ALGNAME, issued_at:new Date().toISOString() };
+      var content_hash=await sha256hex(canonical(cred));
+      var issuer_sig=await sign(kp.privateKey, content_hash);
+      ST={ kp:kp, pub:kp.publicKey, cred:cred, keyid:keyid, entity:entity, human_root:human_root, content_hash:content_hash, issuer_sig:issuer_sig };
+      document.getElementById("credOut").innerHTML =
+        '<div class="cred"><div class="cred-in">'+
+        '<div class="cred-top"><div class="cred-brand">LEGIT · ACCOUNTABLE OPERATOR<b>'+esc(name)+(does?' — '+esc(does):'')+'</b></div><div class="cred-status">● LEGIT ✓</div></div>'+
+        '<div class="row"><span class="k">Entity</span><span class="vv">'+esc(entity)+' · <span class="ok">good standing</span></span></div>'+
+        '<div class="row"><span class="k">Human at root</span><span class="vv"><span class="ok">✓ verified</span> · <span class="priv">'+esc(human_root)+' (no PII)</span></span></div>'+
+        '<div class="row"><span class="k">Agent key ('+esc(ALGNAME)+')</span><span class="vv">'+esc(keyid)+'…</span></div>'+
+        '<div class="row"><span class="k">Issuer signature</span><span class="vv ok">✓ '+esc(issuer_sig.slice(0,22))+'…</span></div>'+
+        '</div></div>'+
+        '<p class="muted">Real keypair generated in your browser; the credential is signed and disclosed only on valid legal process.</p>';
+      unlock("s2");
+    }catch(e){ document.getElementById("credOut").innerHTML='<div class="result fail">Your browser blocked WebCrypto. Try Chrome/Safari/Firefox.</div>'; }
+    btn.disabled=false; btn.textContent="Re-issue →";
+  });
+
+  // ---- Step 2: authorize ----
+  document.getElementById("reqBtn").addEventListener("click", async function(){
+    var v=document.getElementById("action").value.split("|");
+    var kind=v[0], amount=+v[1], to=v[2], memo=v[3];
+    var payload = kind==="pay" ? {kind:"approve_payment",amount:amount,currency:"USD",to:to,memo:memo} : {kind:"sign",title:to,detail:memo};
+    var summary = kind==="pay" ? "Approve "+money(amount)+" to "+to+" — "+memo : "Sign “"+to+"”";
+    var payload_hash=await sha256hex(canonical(payload));
+    document.getElementById("consentOut").innerHTML =
+      '<div class="consent"><div class="who">Agent <b>'+esc(ST.cred.agent_name)+'</b> ('+esc(ST.keyid)+'…) is asking <b>you</b>, the verified human, to approve:</div>'+
+      '<div class="what">'+esc(summary)+'</div><div class="hash">payload digest · sha256:'+esc(payload_hash.slice(0,40))+'…</div>'+
+      '<div class="actions"><button class="btn btn-primary" id="approveBtn">Approve as the human ✓</button></div></div>';
+    ST.payload=payload; ST.summary=summary; ST.payload_hash=payload_hash;
+    document.getElementById("approveBtn").addEventListener("click", async function(){
+      var receipt={ v:1, kind:payload.kind, decision:"approved", payload_hash:payload_hash, summary:summary, human_root:ST.human_root, agent_keyid:ST.keyid, approved_at:new Date().toISOString(), nonce:rid(16), issuer:"legit-sandbox" };
+      var rc_hash=await sha256hex(canonical(receipt));
+      var sig=await sign(ST.kp.privateKey, rc_hash);
+      ST.receipt=receipt; ST.rc_hash=rc_hash; ST.sig=sig;
+      document.getElementById("consentOut").innerHTML += '<div class="result good"><b>✓ Signed decision receipt issued</b>A named human approved this exact act. No PII. Verifiable offline.<pre>'+esc(JSON.stringify(receipt,null,2))+'\n\nsignature ('+ALGNAME+'): '+esc(sig.slice(0,48))+'…</pre></div>';
+      unlock("s3");
+    });
+  });
+
+  // ---- Step 3: verify + tamper ----
+  async function runVerify(executedPayload){
+    var recomputed=await sha256hex(canonical(ST.receipt));
+    var sigOk=await verify(ST.pub, recomputed, ST.sig);
+    var wysiwyg = executedPayload===undefined ? null : (await sha256hex(canonical(executedPayload)))===ST.receipt.payload_hash;
+    var el=document.getElementById("verifyOut");
+    if(sigOk && (wysiwyg===null||wysiwyg===true)){
+      el.innerHTML='<div class="result good"><b>✓ Valid</b>Signature verifies against the public key ('+ALGNAME+'). '+(wysiwyg===true?'And the act you’re about to execute matches what the human approved.':'')+'<br>Approved by <b>'+esc(ST.receipt.human_root)+'</b> · agent <b>'+esc(ST.receipt.agent_keyid)+'…</b> · '+esc(ST.receipt.summary)+'<br><span class="muted">Verified with the public key alone — no callback to Legit, no PII.</span></div>';
+    } else if(sigOk && wysiwyg===false){
+      el.innerHTML='<div class="result fail"><b>✗ Rejected — WYSIWYS mismatch</b>The signature is authentic, but the act being executed ('+money(executedPayload.amount)+') is NOT what the human approved ('+money(ST.payload.amount)+'). A relying party refuses it. <br><span class="muted">This is the whole point: the receipt is bound to exactly what the human saw.</span></div>';
+    } else {
+      el.innerHTML='<div class="result fail"><b>✗ Invalid signature</b>The receipt was tampered with — verification fails.</div>';
+    }
+  }
+  document.getElementById("verifyBtn").addEventListener("click", function(){ runVerify(ST.payload); });
+  document.getElementById("tamperBtn").addEventListener("click", function(){
+    var bad=Object.assign({},ST.payload,{amount:9400}); // try to honor a different act than was approved
+    runVerify(bad);
+  });
+})();
+</script>
+</body>
+</html>
