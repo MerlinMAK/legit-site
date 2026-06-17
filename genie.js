@@ -313,14 +313,67 @@
     ".lg-typing i:nth-child(2){animation-delay:.15s}.lg-typing i:nth-child(3){animation-delay:.3s}",
     "@keyframes lg-bounce{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}",
     "@media(max-width:520px){.lg-panel{right:0;bottom:0;width:100vw;height:88vh;border-radius:18px 18px 0 0}.lg-fab{right:14px;bottom:14px}}",
-    "@media(prefers-reduced-motion:reduce){.lg-panel.lg-open{animation:none}.lg-typing i{animation:none;opacity:.6}.lg-fab,.lg-chip,.lg-x{transition:none}.lg-fab:hover{transform:none}}",
+    // ── mobile nav: one shared hamburger across all pages (no per-page markup) ──
+    ".lg-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;margin-left:10px;background:none;border:1px solid var(--line2,rgba(234,238,245,.18));border-radius:10px;cursor:pointer;flex:none}",
+    ".lg-burger:hover{border-color:var(--verify,#4D8DFF)}",
+    ".lg-burger span{display:block;height:2px;width:100%;background:var(--ink,#EAEEF5);border-radius:2px;transition:transform .2s ease,opacity .2s ease}",
+    "nav.lg-nav-open .lg-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}",
+    "nav.lg-nav-open .lg-burger span:nth-child(2){opacity:0}",
+    "nav.lg-nav-open .lg-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}",
+    "@media(max-width:780px){",
+    "  .lg-burger{display:flex}",
+    "  nav .nav-links{position:absolute;top:100%;left:0;right:0;display:none!important;flex-direction:column;align-items:stretch;gap:0;background:var(--bg2,#0F1420);border-top:1px solid var(--line,rgba(234,238,245,.10));border-bottom:1px solid var(--line2,rgba(234,238,245,.18));padding:6px 22px 18px;box-shadow:0 26px 50px rgba(0,0,0,.45)}",
+    "  nav.lg-nav-open .nav-links{display:flex!important}",
+    "  nav .nav-links a{display:block!important;padding:13px 2px;font-size:15px;color:var(--ink,#EAEEF5);border-bottom:1px solid var(--line,rgba(234,238,245,.08))}",
+    "  nav .nav-links a:hover{color:var(--verify,#4D8DFF)}",
+    "  nav .nav-links .btn,nav .nav-links a.btn{width:100%;justify-content:center;text-align:center;margin-top:12px;padding:13px;border-bottom:none!important}",
+    "}",
+    "@media(prefers-reduced-motion:reduce){.lg-panel.lg-open{animation:none}.lg-typing i{animation:none;opacity:.6}.lg-fab,.lg-chip,.lg-x,.lg-burger span{transition:none}.lg-fab:hover{transform:none}}",
   ].join("\n");
 
   // ── DOM build ────────────────────────────────────────────────────────────
   var fab, panel, stream, seedsRow, input, sendBtn, opened = false, busy = false, lastFocus = null;
 
+  // ── mobile nav: inject a hamburger that toggles the existing .nav-links ──────
+  // Centralized here so all pages share one accessible menu with no per-page
+  // markup edits. No-ops on pages without a .nav-links (e.g. the sandbox).
+  function initMobileNav() {
+    var navLinks = document.querySelector("nav .nav-links");
+    if (!navLinks) return;
+    var navEl = navLinks.closest("nav");
+    var bar = navLinks.parentElement;
+    if (!navEl || !bar || bar.querySelector(".lg-burger")) return;
+    if (!navLinks.id) navLinks.id = "lg-navlinks";
+
+    var burger = el("button", "lg-burger");
+    burger.type = "button";
+    burger.setAttribute("aria-label", "Menu");
+    burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-controls", navLinks.id);
+    burger.innerHTML = "<span></span><span></span><span></span>";
+    bar.appendChild(burger);
+
+    function setOpen(o) {
+      navEl.classList.toggle("lg-nav-open", o);
+      burger.setAttribute("aria-expanded", String(o));
+      burger.setAttribute("aria-label", o ? "Close menu" : "Menu");
+    }
+    burger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      setOpen(!navEl.classList.contains("lg-nav-open"));
+    });
+    // tapping a link, clicking outside, or Escape closes the menu
+    navLinks.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("click", function (e) {
+      if (navEl.classList.contains("lg-nav-open") && !navEl.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 780) setOpen(false); });
+  }
+
   function mount() {
     var style = el("style"); style.textContent = CSS; document.head.appendChild(style);
+    initMobileNav();
 
     fab = el("button", "lg-fab");
     fab.type = "button";
