@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legit for Repositories — get an LLC for your Git repo</title>
+<meta name="description" content="Give any repository its own liability-contained LLC — free, $0 per repo, with a verified human at the root. Form it, fund it, and pay your contributors from the repo itself." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#080B12;--bg2:#0E131D;--bg3:#151B28;--ink:#EAEEF5;--dim:#8B94A8;--faint:#586173;--verify:#4D8DFF;--verify-deep:#1F5FCC;--verify2:#2B6CE6;--verified:#34D399;--seal:#E0A458;--line:rgba(234,238,245,.10);--line2:rgba(234,238,245,.18);--display:'Sora',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;--maxw:1000px}
+  *{box-sizing:border-box;margin:0;padding:0}a{color:inherit;text-decoration:none}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,14,23,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+  .seal{width:25px;height:25px;border-radius:8px;background:linear-gradient(150deg,var(--verify),var(--verify2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:800}
+  .nav-links{display:flex;align-items:center;gap:24px;font-size:.93rem;color:var(--dim)}.nav-links a:hover{color:var(--ink)}
+  .btn{font-weight:600;font-size:.95rem;border-radius:10px;padding:11px 20px;display:inline-flex;align-items:center;gap:.5ch;transition:transform .15s,background .15s}
+  .btn-primary{background:linear-gradient(180deg,var(--verify),var(--verify2));color:#fff;box-shadow:0 8px 22px rgba(77,141,255,.28)}.btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}.btn-ghost:hover{border-color:var(--verify);color:var(--verify)}
+  .btn-sm{padding:9px 16px;font-size:.9rem}
+  .hero{padding:clamp(56px,8vw,96px) 0 clamp(36px,5vw,60px);position:relative}
+  .hero::before{content:"";position:absolute;top:-12%;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(ellipse,rgba(77,141,255,.13),transparent 64%);pointer-events:none}
+  .eyebrow{position:relative;font-family:var(--mono);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--verify);margin-bottom:20px;display:inline-block}
+  h1{position:relative;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:1.04;letter-spacing:-.035em;margin-bottom:20px;max-width:16ch}
+  h1 .v{color:var(--verify)}
+  .lead{position:relative;font-size:clamp(1.04rem,1.6vw,1.2rem);color:var(--dim);max-width:52ch;margin-bottom:28px}.lead strong{color:var(--ink);font-weight:600}
+  .cta{position:relative;display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+  .trust{position:relative;display:flex;gap:8px 20px;flex-wrap:wrap;font-family:var(--mono);font-size:.76rem;color:var(--faint)}
+  .trust span{display:flex;align-items:center;gap:7px}.trust span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--verify-deep)}
+  .sec{padding:clamp(40px,6vw,68px) 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);letter-spacing:-.02em;margin-bottom:10px}
+  .sub{color:var(--dim);margin-bottom:26px;max-width:60ch}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card .ic{font-size:1.2rem;margin-bottom:10px}
+  .card h3{font-family:var(--display);font-weight:600;font-size:1.06rem;margin-bottom:6px}.card p{color:var(--dim);font-size:.92rem;line-height:1.55}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}@media(max-width:760px){.steps{grid-template-columns:1fr 1fr}}@media(max-width:460px){.steps{grid-template-columns:1fr}}
+  .step .n{font-family:var(--mono);font-size:.78rem;color:var(--verify);letter-spacing:.1em;margin-bottom:8px}
+  .step h4{font-family:var(--display);font-weight:600;font-size:1.02rem;margin-bottom:5px}.step p{color:var(--dim);font-size:.9rem}
+  .codewrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}@media(max-width:820px){.codewrap{grid-template-columns:1fr;gap:24px}}
+  .code{background:#0B1120;border:1px solid var(--line2);border-radius:13px;overflow:hidden}
+  .code-top{padding:11px 15px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--faint)}
+  pre{margin:0;padding:16px 18px;font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--dim);overflow-x:auto}
+  pre .k{color:#69a0ff}pre .s{color:var(--verified)}pre .c{color:var(--faint)}pre .p{color:var(--seal)}
+  /* repo badge mock */
+  .badge{background:var(--bg2);border:1px solid var(--line2);border-radius:13px;padding:18px 20px;font-family:var(--mono);font-size:.82rem}
+  .badge .b-top{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+  .badge .b-chk{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--verified);color:var(--verified);display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800}
+  .badge .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line)}.badge .row:last-child{border-bottom:none}
+  .badge .row .k{color:var(--faint)}.badge .row .vv{color:var(--ink)}.badge .ok{color:var(--verified)}.badge .priv{color:var(--faint)}
+  .band{background:linear-gradient(180deg,var(--bg2),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .note{font-size:.95rem;color:var(--dim);max-width:64ch}.note strong{color:var(--ink)}
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--faint);font-family:var(--mono);font-size:.78rem;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.foot a{color:var(--dim)}.foot a:hover{color:var(--ink)}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style>
+</head>
+<body>
+<nav><div class="wrap nav"><a class="brand" href="../"><span class="seal">✓</span>Legit</a>
+  <div class="nav-links"><a href="../for-agents/">AI Agents</a><a href="../for-enterprise/">Enterprise</a><a href="../for-partners/">Partners</a><a href="#access" class="btn btn-primary btn-sm">Get early access</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Legit for Repositories</span>
+  <h1>Get an LLC for your <span class="v">Git repo</span>.</h1>
+  <p class="lead">Give any repository its own liability-contained company — <strong>your first repo free</strong>, unlimited for $49/yr, with a verified human at the root. Form it, fund it, and pay your contributors — from the repo itself.</p>
+  <div class="cta"><a href="#access" class="btn btn-primary">Get early access →</a><a href="#how" class="btn btn-ghost">See how it works</a></div>
+  <div class="trust"><span>1 free per verified human · unlimited $49/yr</span><span>Verified human at the root</span><span>Liability contained, not your name</span></div>
+</div></header>
+
+<section class="sec"><div class="wrap">
+  <h2>An entity per repo only works at <span style="color:var(--verify)">$0 state cost</span>.</h2>
+  <p class="sub">Wrapping a repo in an LLC is absurd at $100 a filing — and inevitable when each one costs $0 in state fees. Legit carries one master Delaware Series LLC, so each repo is issued as its own <strong style="color:var(--ink)">protected series</strong>: a real, separately-liable company with its own name and EIN, created in seconds. Your <strong style="color:var(--ink)">first is free</strong> for every verified person; add unlimited repos on one flat plan — versus ~$100 every time you'd file a standalone.</p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <h2>What every repo-entity gets</h2>
+  <p class="sub">The legal body your code never had — composable and programmatic, one call per repo.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">🛡️</div><h3>Liability, contained</h3><p>One repo's risk stays in that repo's entity — never your personal name, never your other projects. Containment, not immunity for what you personally direct.</p></div>
+    <div class="card"><div class="ic">✓</div><h3>A verifiable identity</h3><p>Repo → entity → a KYC-verified human at the root, publicly checkable as a Legit Check badge. Shielded on the record; accountable, not anonymous.</p></div>
+    <div class="card"><div class="ic">#️⃣</div><h3>EIN &amp; bank-ready</h3><p>Sponsorships, grants, and revenue land in the entity — not your Venmo. Get an EIN and open a real account for the project.</p></div>
+    <div class="card"><div class="ic">📒</div><h3>An ownership ledger</h3><p>A cap table of record for the repo: who owns it, with every change a signed, offline-verifiable event. Maintainers and contributors, on the books.</p></div>
+    <div class="card"><div class="ic">📊</div><h3>Verified P&amp;L</h3><p>The repo's attested economic creation — a signed, source-grounded record of what the project actually earned.</p></div>
+    <div class="card"><div class="ic">💸</div><h3>Pay your contributors</h3><p>Compute who's owed, pro-rata to the ledger, and authorize payouts with a human signature. Funding and disbursement run through licensed partners — Legit never touches the funds.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="how"><div class="wrap">
+  <h2>From repo to real company in minutes</h2>
+  <div class="steps" style="margin-top:24px">
+    <div class="step"><div class="n">01</div><h4>Name the entity</h4><p>Point Legit at your repo; it reserves a free protected series in seconds.</p></div>
+    <div class="step"><div class="n">02</div><h4>Verify the human</h4><p>A quick identity check anchors the repo to an accountable person — the root of the badge.</p></div>
+    <div class="step"><div class="n">03</div><h4>Get the badge</h4><p>A public, cryptographically verifiable Legit Check for the repo — proof it's a real, in-good-standing entity.</p></div>
+    <div class="step"><div class="n">04</div><h4>Fund &amp; pay</h4><p>Receive sponsorships and revenue into the entity, track ownership, and pay contributors from it.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap codewrap">
+  <div>
+    <h2>One call per repo</h2>
+    <p class="sub" style="margin-bottom:18px">Form it from the CLI, the API, or an agent that lives in the repo. Every repo-entity gets a public, bank-checkable proof page.</p>
+  <div class="code"><div class="code-top">repo.ts</div>
+<pre><span class="c">// incorporate the repo as a free protected series</span>
+<span class="k">const</span> co = <span class="k">await</span> legit.entities.<span class="p">create</span>({
+  repo: <span class="s">"github.com/orion/agent-runtime"</span>,
+  type: <span class="s">"series"</span>, owner:{ verify:<span class="s">"persona"</span> },
+});
+co.id;            <span class="c">// "LGT-7421"</span>
+co.badge_url;     <span class="c">// Legit Check badge for the README</span>
+co.verify_url;    <span class="c">// public, no login</span>
+</pre></div>
+  </div>
+  <div class="badge">
+    <div class="b-top"><span class="b-chk">✓</span>Legit Check · repo</div>
+    <div class="row"><span class="k">repo</span><span class="vv">orion/agent-runtime</span></div>
+    <div class="row"><span class="k">entity</span><span class="vv"><span class="ok">✓ verified</span> · good standing</span></div>
+    <div class="row"><span class="k">human root</span><span class="vv"><span class="ok">✓ verified</span> · <span class="priv">private</span></span></div>
+    <div class="row"><span class="k">series</span><span class="vv">Delaware · $0 state</span></div>
+  </div>
+</div></section>
+
+<section class="sec band"><div class="wrap">
+  <h2>The honest part</h2>
+  <p class="note"><strong>Not every repo needs an entity.</strong> Most are hobby or throwaway. Incorporate when a repo <strong>earns or carries liability</strong> — a popular project with sponsors, a startup's core repo, an agent's repo. <br><br><strong>One free entity per verified person.</strong> Additional repos are a low flat rate, and every entity — free or paid — traces to a KYC'd human, which is what keeps this from becoming a shell-company mill. <br><br><strong>Funding and payouts run through licensed partners.</strong> Legit is the verified ledger of record — who owns the repo and who's owed — and never sells securities, runs a marketplace, or touches investor funds. Free entities are issued as a protected series of a Legit-administered master; series recognition varies by state, and disclosures are shown before you form.</p>
+</div></section>
+
+<section class="sec" id="access"><div class="wrap" style="text-align:center">
+  <h2>Give your repo a legal body.</h2>
+  <p class="sub" style="margin:12px auto 22px">Early access is opening for maintainers, builders, and the agents that live in their repos.</p>
+  <div class="cta" style="justify-content:center"><a href="../#access" class="btn btn-primary">Get early access →</a><a href="../for-agents/" class="btn btn-ghost">Legit for AI Agents</a></div>
+</div></section>
+
+<footer><div class="wrap foot"><span>© 2026 Legit · an LLC for your repo</span><span><a href="../for-agents/">AI Agents</a> · <a href="../for-partners/">Partners</a> · <a href="../">Home</a></span></div></footer>
+<script>window.LEGIT_HOME="../";</script>
+<script src="../genie.js" defer></script>
+</body>
+</html>

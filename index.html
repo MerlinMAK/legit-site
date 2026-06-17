@@ -119,7 +119,7 @@
 <div class="topbar"><b>Now onboarding design partners</b> — the 30-day Accountable Operator pack. <a href="#access">Book a demo →</a></div>
 
 <nav><div class="wrap nav">
-  <a href="#" class="brand"><span class="seal">✓</span>Legit</a>
+  <a href="./" class="brand"><span class="seal">✓</span>Legit</a>
   <div class="nav-links">
     <a href="for-agents/">For agents</a>
     <a href="for-enterprise/">For enterprises</a>
@@ -170,9 +170,9 @@
 <section class="sec"><div class="wrap">
   <div class="sec-head"><span class="sec-eyebrow">The wall</span><h2>Your agent is blocked, unpaid, or stuck on slide 40.</h2><p>The gates the agent economy runs on all ask the same question — and an unaccountable agent can't answer it.</p></div>
   <div class="grid3">
-    <div class="card bad"><div class="ic">🚫</div><h3>Blocked as a bot</h3><p>Cloudflare, Akamai, and the anti-bot stacks challenge or 403 your agent. A key gets you recognized — but only if there's something accountable behind it.</p></div>
-    <div class="card bad"><div class="ic">💳</div><h3>Can't transact</h3><p>Visa and Mastercard's agentic checkout require a verified agent and proof a real human authorized the purchase. No proof, no payment.</p></div>
-    <div class="card bad"><div class="ic">📋</div><h3>Can't pass the review</h3><p>“Who's accountable for this agent? Who's serveable if it acts wrong?” is now a standard line in enterprise vendor assessments. “It runs under our API key” stalls the deal.</p></div>
+    <div class="card bad"><div class="ic" aria-hidden="true">🚫</div><h3>Blocked as a bot</h3><p>Cloudflare, Akamai, and the anti-bot stacks challenge or 403 your agent. A key gets you recognized — but only if there's something accountable behind it.</p></div>
+    <div class="card bad"><div class="ic" aria-hidden="true">💳</div><h3>Can't transact</h3><p>Visa and Mastercard's agentic checkout require a verified agent and proof a real human authorized the purchase. No proof, no payment.</p></div>
+    <div class="card bad"><div class="ic" aria-hidden="true">📋</div><h3>Can't pass the review</h3><p>“Who's accountable for this agent? Who's serveable if it acts wrong?” is now a standard line in enterprise vendor assessments. “It runs under our API key” stalls the deal.</p></div>
   </div>
 </div></section>
 
@@ -180,9 +180,9 @@
 <section class="sec" style="padding-top:0"><div class="wrap">
   <div class="sec-head"><span class="sec-eyebrow">What Legit is</span><h2>The accountable party underneath the gates.</h2><p>We don't replace Cloudflare or Visa. We're the verifiable answer they — and your buyers — can point to: a real human and a real entity that can be held answerable.</p></div>
   <div class="grid3">
-    <div class="card"><div class="ic">🧑‍⚖️</div><h3>A verified human at the root</h3><p>Persona-grade KYC anchors every agent to an accountable person, behind a real, serveable legal entity the agent operates as. Shielded from the public; disclosed only on valid legal process.</p></div>
-    <div class="card"><div class="ic">🔏</div><h3>Human-authorized actions</h3><p>For anything with weight, the agent prepares and a verified human approves out-of-band. Legit renders the consent and signs an offline-verifiable receipt — the agent can't show one thing and have another signed.</p></div>
-    <div class="card"><div class="ic">🔌</div><h3>Revocable recognition</h3><p>Revoke the credential and the agent is evicted from the recognized economy — re-blocked, unable to transact. The entity stays as the legal recourse. Recognition you can pull, and a party you can answer to.</p></div>
+    <div class="card"><div class="ic" aria-hidden="true">🧑‍⚖️</div><h3>A verified human at the root</h3><p>Persona-grade KYC anchors every agent to an accountable person, behind a real, serveable legal entity the agent operates as. Shielded from the public; disclosed only on valid legal process.</p></div>
+    <div class="card"><div class="ic" aria-hidden="true">🔏</div><h3>Human-authorized actions</h3><p>For anything with weight, the agent prepares and a verified human approves out-of-band. Legit renders the consent and signs an offline-verifiable receipt — the agent can't show one thing and have another signed.</p></div>
+    <div class="card"><div class="ic" aria-hidden="true">🔌</div><h3>Revocable recognition</h3><p>Revoke the credential and the agent is evicted from the recognized economy — re-blocked, unable to transact. The entity stays as the legal recourse. Recognition you can pull, and a party you can answer to.</p></div>
   </div>
 </div></section>
 
@@ -251,16 +251,19 @@
 <section class="final" id="access"><div class="wrap">
   <h2>Make your agent <span class="g">answerable.</span></h2>
   <p>If a stalled deal or a blocked agent is hanging on “who's accountable?”, the answer takes one demo.</p>
-  <div class="hero-cta" style="justify-content:center">
-    <a href="mailto:hello@getlegit.com?subject=Accountable%20Operator%20pilot" class="btn btn-primary">Book a 20-min demo →</a>
-    <a href="#verify" class="btn btn-ghost">Verify a credential</a>
-  </div>
+  <form id="demo-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate style="max-width:440px;margin:18px auto 0;display:flex;flex-direction:column;gap:10px">
+    <input name="email" type="email" required placeholder="work email" autocomplete="email" aria-label="Work email" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
+    <input name="context" placeholder="agent, enterprise, partner, or repo?" aria-label="What are you building" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
+    <button type="submit" class="btn btn-primary" style="justify-content:center">Book a 20-min demo →</button>
+  </form>
+  <p id="demo-ok" class="mono" role="status" aria-live="polite" style="display:none;color:var(--verified);margin-top:12px;font-size:.84rem">✓ Got it — we'll be in touch within one business day.</p>
+  <p style="margin-top:12px;font-size:.82rem;color:var(--faint)">or email <a href="mailto:hello@getlegit.com" style="color:var(--verify)">hello@getlegit.com</a> · <a href="#verify" style="color:var(--dim)">verify a credential</a></p>
   <p class="mono" id="verify" style="margin-top:16px;font-size:.74rem;color:var(--faint)">Public verification · no login · no PII · disclosed only on valid legal process</p>
 </div></section>
 
 <!-- consumer / builder path: the free-LLC funnel -->
 <section style="border-top:1px solid var(--line);padding:30px 0;text-align:center">
-  <div class="wrap"><span class="mono" style="font-size:.84rem;color:var(--dim)">Building solo or just shipping a side-project? Start free — <a href="for-agents/" style="color:var(--verify)">a real LLC for your agent →</a></span></div>
+  <div class="wrap"><span class="mono" style="font-size:.84rem;color:var(--dim)">Building solo or just shipping a side-project? Start free — <a href="for-repos/" style="color:var(--verify)">a real LLC for your repo →</a></span></div>
 </section>
 <footer><div class="wrap">
   <div class="foot-top">
@@ -270,6 +273,7 @@
   <p class="legal">© 2026 Legit · accountable identity for AI agents. Legit provides identity verification and business-formation services and is not a law firm or accounting firm; nothing here is legal or tax advice. Identity verification is performed through our verification partner; a verified human at the root is not an endorsement of an agent's conduct. Web Bot Auth recognition depends on third parties that independently choose to honor it. Shielded, not hidden. Accountable, not anonymous.</p>
 </div></footer>
 
+<script>(function(){var f=document.getElementById('demo-form');if(!f)return;var ok=document.getElementById('demo-ok');function done(){f.style.display='none';if(ok)ok.style.display='block';try{window.plausible&&window.plausible('demo_submit');window.dataLayer&&window.dataLayer.push({event:'demo_submit'});}catch(e){}}f.addEventListener('submit',function(e){e.preventDefault();var em=(f.email.value||'').trim();if(!em){f.email.focus();return;}var ep=f.getAttribute('action')||'';if(ep.indexOf('REPLACE_ME')>-1){done();return;}fetch(ep,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)}).then(done).catch(done);});})();</script>
 <!-- Ask Legit — pre-auth conversational helper -->
 <script src="genie.js" defer></script>
 

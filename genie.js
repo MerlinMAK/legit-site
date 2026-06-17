@@ -185,25 +185,25 @@
   function rHuman() {
     return {
       html: "Nothing irreversible happens without a verified human. Tools that <b>read or prepare</b> run on their own; anything that <b>forms an entity, moves money, or revokes</b> returns a short-lived link for a human to authorize — then it executes. The chat is never the authorization.<br><br>That's the line that makes a Legit company <b>accountable</b>, and what gets agents unblocked on the open web.",
-      cta: { label: "See the trust model →", href: HOME + "#api" },
+      cta: { label: "See the trust model →", href: HOME + "#how" },
     };
   }
   function rPrivacy() {
     return {
-      html: "<b>Shielded, not hidden.</b> Your name isn't on the public record — but every entity traces to a KYC-verified human, disclosed <b>only on valid legal process</b> (routed through legal review, never returned through the API). Good actors get privacy; fraud loses the kill switch.",
+      html: "<b>Shielded, not hidden.</b> Your name isn't on the public record — but every entity traces to a KYC-verified human, disclosed <b>only on valid legal process</b> (routed through legal review, never returned through the API). Good actors get privacy; fraud loses recognition.",
       cta: { label: "Start free →", href: ACCESS },
     };
   }
   function rBanking() {
     return {
       html: "We don't custody money — and that's deliberate. <b>Form anywhere, bank anywhere.</b> A free protected series may have limited standalone banking; for a fully bankable account, upgrade to a <b>Standalone</b> (or one-click handoff to a banking partner). We never lock your money inside us.",
-      cta: { label: "Compare plans →", href: HOME + "#pricing" },
+      cta: { label: "Compare plans →", href: HOME + "#products" },
     };
   }
   function rTrademark() {
     return {
       html: "Trademark search + application prep is on the <b>Standalone</b> tier — from name to filed mark. Note: a company name isn't a trademark, and a free protected series isn't a registry clearance. If the brand matters, do the search.",
-      cta: { label: "See Standalone →", href: HOME + "#pricing" },
+      cta: { label: "See Standalone →", href: HOME + "#products" },
       disclaimer: true,
     };
   }
@@ -273,7 +273,7 @@
     ".lg-panel.lg-open{display:flex;animation:lg-in .18s ease}",
     "@keyframes lg-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}",
     ".lg-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line,rgba(234,238,245,.10));background:var(--bg3,#141B2A)}",
-    ".lg-seal{width:24px;height:24px;border-radius:50%;border:2px solid var(--verify,#4D8DFF);display:flex;align-items:center;justify-content:center;color:var(--verify,#4D8DFF);font-size:12px;font-weight:800;flex:none}",
+    ".lg-seal{width:24px;height:24px;border-radius:8px;border:none;background:linear-gradient(150deg,var(--verify,#4D8DFF),#2B6CE6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex:none}",
     ".lg-head h4{font-family:var(--display,inherit);font-weight:700;font-size:15px;margin:0;letter-spacing:-.01em}",
     ".lg-head .lg-sub{font-family:var(--mono,monospace);font-size:10.5px;color:var(--dim,#8B94A8);letter-spacing:.04em;margin-top:1px}",
     ".lg-x{margin-left:auto;background:none;border:none;color:var(--dim,#8B94A8);font-size:20px;cursor:pointer;line-height:1;padding:4px 6px;border-radius:8px}",
