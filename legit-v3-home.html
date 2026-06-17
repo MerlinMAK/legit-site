@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Legit — A free, real LLC + verified identity for your AI agent</title>
+<meta name="description" content="Give your AI agent a verified human at its root, a real liability-contained entity it operates as, and an accountable pass to the open web. Shielded, not hidden. Free to start." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0A0E17;
+    --bg-2:#0F1420;
+    --bg-3:#141B2A;
+    --ink:#EAEEF5;
+    --ink-dim:#8B94A8;
+    --ink-faint:#586173;
+    --verify:#4D8DFF;
+    --verify-deep:#1F5FCC;
+    --verified:#2BD46A;
+    --seal:#E0A458;
+    --seal-deep:#A6702E;
+    --line:rgba(234,238,245,0.10);
+    --line-strong:rgba(234,238,245,0.20);
+    --maxw:1160px;
+    --display:'Sora',sans-serif;
+    --body:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--verify);color:#04101f}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,14,23,0.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+  .brand .seal-mark{width:20px;height:20px;border-radius:50%;border:2px solid var(--verify);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--verify);font-weight:700}
+  .nav-links{display:flex;align-items:center;gap:30px;font-size:.94rem}
+  .nav-links a.muted{color:var(--ink-dim)}
+  .nav-links a.muted:hover{color:var(--ink)}
+  .btn{font-family:var(--body);font-weight:600;font-size:1rem;border:none;cursor:pointer;border-radius:10px;padding:13px 24px;transition:transform .15s,background .15s,color .15s,border-color .15s;display:inline-flex;align-items:center;gap:.5ch}
+  .btn-primary{background:var(--verify);color:#04101f}
+  .btn-primary:hover{transform:translateY(-2px);background:#69a0ff}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--verify);color:var(--verify)}
+  .btn-sm{padding:9px 18px;font-size:.92rem}
+
+  /* hero */
+  .hero{padding:clamp(54px,8vw,104px) 0 clamp(48px,7vw,88px);position:relative}
+  .hero::before{content:"";position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(77,141,255,.10),transparent 65%);pointer-events:none;z-index:0}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;position:relative;z-index:1}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--verify);margin-bottom:24px;display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--verify)}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2.7rem,6vw,4.7rem);line-height:1.0;letter-spacing:-.035em;margin-bottom:26px}
+  h1 .v{color:var(--verify)}
+  h1 .g{color:var(--verified)}
+  .sub{font-size:clamp(1.06rem,1.6vw,1.24rem);color:var(--ink-dim);max-width:31em;margin-bottom:34px}
+  .sub strong{color:var(--ink);font-weight:600}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+  .trust-row{display:flex;gap:10px 22px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-faint);font-family:var(--mono)}
+  .trust-row span{display:flex;align-items:center;gap:8px}
+  .trust-row span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--verify-deep)}
+
+  /* credential card (signature element) */
+  .cred{
+    position:relative;border-radius:18px;padding:26px;
+    background:linear-gradient(160deg,#121A2C,#0C1220);
+    border:1px solid var(--line-strong);
+    box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow:hidden;
+  }
+  .cred::before{ /* security guilloche texture */
+    content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background:
+      repeating-linear-gradient(115deg,rgba(77,141,255,.05) 0 1px,transparent 1px 7px),
+      radial-gradient(circle at 80% 18%,rgba(224,164,88,.06),transparent 40%);
+  }
+  .cred-inner{position:relative;z-index:1}
+  .cred-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+  .cred-brand{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--ink-dim);line-height:1.5}
+  .cred-brand b{display:block;color:var(--ink);font-weight:600;letter-spacing:.04em}
+  .cred-status{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.35);color:var(--verify);white-space:nowrap}
+  .cred-status .dot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 0 0 rgba(77,141,255,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(77,141,255,.5)}70%{box-shadow:0 0 0 7px rgba(77,141,255,0)}100%{box-shadow:0 0 0 0 rgba(77,141,255,0)}}
+  .cred-rows{display:grid;gap:1px;background:var(--line);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+  .cred-row{background:#0E1422;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .cred-row .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .cred-row .vv{font-size:.92rem;font-weight:600;text-align:right}
+  .cred-row .vv .ok{color:var(--verify)}
+  .cred-row .vv .live{color:var(--seal)}
+  .cred-mid{display:flex;align-items:center;gap:16px;margin:18px 0}
+  .cred-seal{
+    width:74px;height:74px;border-radius:50%;flex-shrink:0;position:relative;
+    border:2px solid var(--seal);color:var(--seal);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:.5rem;letter-spacing:.12em;text-align:center;line-height:1.3;
+    background:radial-gradient(circle,rgba(224,164,88,.08),transparent 70%);
+  }
+  .cred-seal .chk{font-size:1.15rem;margin-bottom:1px}
+  .cred-seal::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px dashed rgba(224,164,88,.5)}
+  .cred-seal-txt{font-size:.84rem;color:var(--ink-dim);line-height:1.5}
+  .cred-seal-txt b{color:var(--ink);font-weight:600}
+  .cred-mrz{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-dim);background:#0B1120;border:1px solid var(--line);border-radius:8px;padding:11px 13px;line-height:1.7;word-break:break-all;overflow:hidden}
+  .cred-mrz .hl{color:var(--verify)}
+
+  /* generic section */
+  .sec{padding:clamp(64px,9vw,110px) 0}
+  .sec-head{max-width:42rem;margin-bottom:54px}
+  .sec-eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verify);margin-bottom:18px;display:block}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(1.95rem,4vw,3.05rem);line-height:1.05;letter-spacing:-.03em}
+  .sec-head p{margin-top:18px;color:var(--ink-dim);font-size:1.08rem}
+  .divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  /* problem */
+  .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .prob{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:30px 28px}
+  .prob .pn{font-family:var(--mono);font-size:.74rem;color:var(--seal);letter-spacing:.08em;margin-bottom:16px}
+  .prob h3{font-family:var(--display);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:10px}
+  .prob p{color:var(--ink-dim);font-size:.96rem}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .pillar{background:linear-gradient(165deg,var(--bg-2),var(--bg));border:1px solid var(--line);border-radius:16px;padding:34px;transition:border-color .2s,transform .2s}
+  .pillar:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .pillar-ic{width:46px;height:46px;border-radius:11px;background:rgba(77,141,255,.1);border:1px solid rgba(77,141,255,.28);display:flex;align-items:center;justify-content:center;color:var(--verify);font-family:var(--mono);font-weight:600;font-size:1.1rem;margin-bottom:20px}
+  .pillar h3{font-family:var(--display);font-weight:600;font-size:1.38rem;letter-spacing:-.02em;margin-bottom:12px}
+  .pillar p{color:var(--ink-dim);font-size:.99rem;line-height:1.6}
+  .pillar p .em{color:var(--ink);font-weight:500}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+  .step{padding:34px 28px 0 0;border-right:1px solid var(--line);position:relative}
+  .step:first-child{padding-left:0}
+  .step:last-child{border-right:none;padding-right:0}
+  .step-num{font-family:var(--mono);font-size:.8rem;color:var(--verify);margin-bottom:18px}
+  .step h3{font-family:var(--display);font-weight:600;font-size:1.16rem;letter-spacing:-.015em;margin-bottom:10px}
+  .step p{font-size:.92rem;color:var(--ink-dim)}
+
+  /* doctrine */
+  .doctrine{background:linear-gradient(180deg,var(--bg-2),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .doctrine-inner{max-width:48rem;margin:0 auto;text-align:center}
+  .doctrine h2{margin-bottom:24px}
+  .doctrine h2 .v{color:var(--verify)}
+  .doctrine h2 .s{color:var(--seal)}
+  .doctrine p{color:var(--ink-dim);font-size:1.12rem;line-height:1.7}
+  .doctrine p strong{color:var(--ink);font-weight:600}
+  .doctrine-tags{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .doctrine-tag{font-family:var(--mono);font-size:.82rem;padding:10px 16px;border:1px solid var(--line-strong);border-radius:999px;color:var(--ink-dim)}
+  .doctrine-tag b{color:var(--verify)}
+
+  /* webauth */
+  .wba-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .wba-list{list-style:none;margin-top:22px}
+  .wba-list li{font-family:var(--mono);font-size:.88rem;color:var(--ink-dim);padding:12px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:12px}
+  .wba-list li:first-child{border-top:none}
+  .wba-list li .ck{color:var(--verify)}
+  .wba-sig{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px;font-family:var(--mono);font-size:.82rem;line-height:1.9;color:var(--ink-dim);overflow:hidden}
+  .wba-sig .lbl{color:var(--ink-faint);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;display:block}
+  .wba-sig .ln .key{color:var(--seal)}
+  .wba-sig .ln .val{color:var(--ink)}
+  .wba-sig .ln .hl{color:var(--verify)}
+
+  /* pricing */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .pcard{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:34px 30px;display:flex;flex-direction:column;position:relative;transition:transform .2s,border-color .2s}
+  .pcard:hover{transform:translateY(-4px)}
+  .pcard.feature{border-color:var(--verify);background:linear-gradient(180deg,rgba(77,141,255,.07),var(--bg-2) 32%)}
+  .pbadge{position:absolute;top:-12px;left:30px;background:var(--verify);color:#04101f;font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .pname{font-family:var(--display);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:6px}
+  .pfor{font-size:.86rem;color:var(--ink-faint);margin-bottom:22px;min-height:2.4em}
+  .pamt{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+  .pamt .num{font-family:var(--display);font-weight:800;font-size:2.9rem;letter-spacing:-.03em;line-height:1}
+  .pamt .num.free{color:var(--verify)}
+  .pamt .per{font-family:var(--mono);font-size:.88rem;color:var(--ink-dim)}
+  .pnote{font-size:.82rem;color:var(--ink-faint);margin-bottom:26px}
+  .pfeats{list-style:none;margin-bottom:30px;flex:1}
+  .pfeats li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:.93rem;color:var(--ink-dim);border-top:1px solid var(--line)}
+  .pfeats li:first-child{border-top:none}
+  .pfeats li .ck{color:var(--verify);flex-shrink:0;margin-top:2px}
+  .pfeats li.soon .ck{color:var(--seal)}
+  .pfeats li .soon-tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--seal);border:1px solid rgba(224,164,88,.4);border-radius:5px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+  .pcard .btn{width:100%;justify-content:center}
+
+  /* audience */
+  .aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .aud{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:28px}
+  .aud h3{font-family:var(--display);font-weight:600;font-size:1.18rem;margin-bottom:8px}
+  .aud p{color:var(--ink-dim);font-size:.93rem}
+
+  /* final */
+  .final{padding:clamp(76px,10vw,130px) 0;text-align:center;position:relative}
+  .final::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:760px;height:400px;background:radial-gradient(ellipse,rgba(77,141,255,.10),transparent 65%);pointer-events:none}
+  .final h2{font-size:clamp(2.3rem,5vw,3.7rem);margin:0 auto 20px;position:relative}
+  .final h2 .v{color:var(--verify)}
+  .final p{color:var(--ink-dim);font-size:1.14rem;max-width:34em;margin:0 auto 36px;position:relative}
+  .final .hero-cta{justify-content:center;position:relative}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:48px 0 60px;color:var(--ink-faint)}
+  .foot-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px;flex-wrap:wrap;gap:20px}
+  .foot-links{display:flex;gap:26px;font-size:.92rem}
+  .foot-links a:hover{color:var(--ink)}
+  .legal{font-size:.78rem;line-height:1.65;color:var(--ink-faint);max-width:94ch}
+  .legal strong{color:var(--ink-dim)}
+
+  /* ---- start modal ---- */
+  .sm-overlay{position:fixed;inset:0;z-index:100;background:rgba(5,8,14,0.86);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+  .sm-overlay.open{display:flex}
+  .sm-modal{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:18px;width:100%;max-width:520px;margin:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.55);animation:smIn .35s cubic-bezier(.22,1,.36,1)}
+  @keyframes smIn{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+  .sm-top{display:flex;align-items:center;gap:14px;padding:22px 26px 0}
+  .sm-dots{display:flex;gap:7px;flex:1}
+  .sm-dot{width:26px;height:5px;border-radius:999px;background:var(--bg-3);transition:background .3s}
+  .sm-dot.on{background:var(--verify)}
+  .sm-close{background:none;border:none;color:var(--ink-dim);font-size:1.6rem;line-height:1;cursor:pointer;padding:2px 8px;border-radius:8px}
+  .sm-close:hover{color:var(--ink);background:var(--bg-3)}
+  .sm-body{padding:26px}
+  .sm-step{display:none}
+  .sm-step.active{display:block;animation:smStep .3s ease}
+  @keyframes smStep{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+  .sm-eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verify);margin-bottom:12px;display:block}
+  .sm-title{font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:-.02em;line-height:1.1;margin-bottom:8px}
+  .sm-sub{color:var(--ink-dim);font-size:.96rem;margin-bottom:24px}
+  .sm-field{margin-bottom:16px}
+  .sm-field label{display:block;font-size:.74rem;color:var(--ink-dim);margin-bottom:8px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .sm-field input{width:100%;background:var(--bg-3);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:var(--body);font-size:1rem;transition:border-color .15s}
+  .sm-field input:focus{outline:none;border-color:var(--verify)}
+  .sm-field input.err{border-color:#E0703A}
+  .sm-field .hint{font-size:.78rem;color:var(--ink-faint);margin-top:7px}
+  .sm-err{color:#E0703A;font-size:.84rem;margin:6px 0;display:none}
+  .sm-err.show{display:block}
+  .sm-body .btn{width:100%;justify-content:center}
+  .sm-back{background:none;border:none;color:var(--ink-dim);font-family:var(--body);font-size:.9rem;cursor:pointer;padding:10px 4px 0;display:block;margin:0 auto}
+  .sm-back:hover{color:var(--ink)}
+  /* roadmap */
+  .sm-road{display:grid;gap:12px;margin-bottom:22px}
+  .sm-rstep{display:flex;gap:15px;align-items:flex-start;background:var(--bg-3);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .sm-rstep .rn{width:30px;height:30px;border-radius:8px;flex-shrink:0;background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.3);color:var(--verify);font-family:var(--mono);font-weight:600;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+  .sm-rstep b{display:block;font-weight:600;font-size:1rem;margin-bottom:3px}
+  .sm-rstep span{font-size:.86rem;color:var(--ink-dim)}
+  .sm-success-ic{width:56px;height:56px;border-radius:50%;background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.4);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--verify);margin:0 auto 16px}
+  .sm-note{font-size:.8rem;color:var(--ink-faint);margin-top:16px;text-align:center;line-height:1.5}
+
+  /* ---------- built-on strip ---------- */
+  .builton{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(15,20,32,0.45)}
+  .builton-inner{display:flex;align-items:center;gap:26px;padding:18px 0;flex-wrap:wrap}
+  .builton-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+  .builton-items{display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1}
+  .bo-item{display:flex;flex-direction:column;gap:2px;padding:9px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2)}
+  .bo-item b{font-family:var(--display);font-weight:600;font-size:.96rem;letter-spacing:-.01em;color:var(--ink)}
+  .bo-item small{font-family:var(--mono);font-size:.64rem;letter-spacing:.04em;color:var(--ink-faint)}
+  .builton-verify{font-family:var(--mono);font-size:.82rem;color:var(--verify);white-space:nowrap}
+  .builton-verify:hover{text-decoration:underline}
+
+  /* ---------- hero free flag ---------- */
+  .free-flag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.82rem;color:var(--ink-dim);background:rgba(77,141,255,.08);border:1px solid rgba(77,141,255,.25);border-radius:999px;padding:9px 16px;margin-bottom:24px}
+  .ff-check{color:var(--verify);font-weight:700}
+
+  /* ---------- verify section ---------- */
+  .verify-sec{background:linear-gradient(180deg,var(--bg-2),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .verify-box{max-width:660px;margin:0 auto;text-align:center}
+  .verify-input-row{display:flex;gap:10px;margin:26px auto 0;max-width:520px}
+  .verify-input-row input{flex:1;background:var(--bg-3);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:var(--mono);font-size:.92rem}
+  .verify-input-row input:focus{outline:none;border-color:var(--verify)}
+  .verify-input-row .btn{flex-shrink:0}
+  .verify-result{margin-top:22px;display:none}
+  .verify-result.show{display:block;animation:smStep .3s ease}
+  .verify-card{display:inline-flex;align-items:center;gap:16px;text-align:left;background:var(--bg-3);border:1px solid rgba(77,141,255,.3);border-radius:12px;padding:18px 22px;max-width:100%}
+  .verify-card .vc-ic{width:42px;height:42px;border-radius:50%;background:rgba(77,141,255,.14);border:1px solid rgba(77,141,255,.4);display:flex;align-items:center;justify-content:center;color:var(--verify);font-size:1.2rem;flex-shrink:0;font-weight:700}
+  .verify-card .vc-txt b{display:block;font-weight:600;margin-bottom:3px}
+  .verify-card .vc-txt span{font-size:.84rem;color:var(--ink-dim);font-family:var(--mono);line-height:1.5}
+  .verify-hint{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);margin-top:16px}
+  .verify-hint b{color:var(--ink-dim)}
+
+  /* ---------- free band ---------- */
+  .freeband{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(77,141,255,.06),var(--bg) 60%)}
+  .freeband::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:820px;height:520px;background:radial-gradient(ellipse,rgba(77,141,255,.12),transparent 66%);pointer-events:none}
+  .freeband-inner{position:relative;padding:clamp(56px,8vw,98px) 0;text-align:center;max-width:52rem;margin:0 auto}
+  .free-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--verify);background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.35);padding:8px 16px;border-radius:999px;margin-bottom:24px}
+  .freeband h2{font-size:clamp(2.2rem,5.5vw,3.8rem);margin-bottom:22px;line-height:1.04}
+  .freeband h2 .v{color:var(--verify)}
+  .freeband h2 .g{color:var(--verified)}
+  .free-lead{color:var(--ink-dim);font-size:1.12rem;line-height:1.65;max-width:38em;margin:0 auto 40px}
+  .free-lead b{color:var(--ink);font-weight:600}
+  .free-stack{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;max-width:680px;margin:0 auto 40px}
+  .fs-item{display:flex;gap:14px;align-items:flex-start;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .fs-ck{width:26px;height:26px;border-radius:50%;background:rgba(77,141,255,.14);border:1px solid rgba(77,141,255,.4);color:var(--verify);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;flex-shrink:0;margin-top:2px}
+  .fs-item b{display:block;font-weight:600;font-size:1.02rem;margin-bottom:3px}
+  .fs-item span{font-size:.88rem;color:var(--ink-dim)}
+  .free-cta-row{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .free-fine{font-family:var(--mono);font-size:.8rem;color:var(--ink-faint)}
+
+  @media (max-width:760px){
+    .free-stack{grid-template-columns:1fr}
+    .builton-inner{gap:16px}
+    .builton-verify{width:100%}
+    .verify-input-row{flex-direction:column}
+  }
+
+  /* ---------- top announce bar ---------- */
+  .topbar{background:linear-gradient(90deg,var(--verify-deep),#2f72d8);color:#eaf2ff;font-size:.86rem;text-align:center;padding:9px 16px;font-family:var(--body)}
+  .topbar a{font-weight:700;text-decoration:underline;text-underline-offset:2px;color:#fff}
+  .topbar a:hover{opacity:.85}
+  .topbar .tb-ic{margin-right:6px}
+
+  /* ---------- press / featured bar ---------- */
+  .press{padding:28px 0;border-bottom:1px solid var(--line)}
+  .press-inner{display:flex;align-items:center;justify-content:center;gap:14px 38px;flex-wrap:wrap}
+  .press-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+  .press-logos{display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:center}
+  .press-logos svg{height:21px;width:auto;fill:var(--ink-dim);opacity:.62;transition:opacity .2s,fill .2s}
+  .press-logos svg:hover{opacity:1;fill:var(--ink)}
+
+  /* logo wordmarks in built-on */
+  .bo-logo{display:flex;align-items:center;gap:11px;padding:11px 18px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2)}
+  .bo-logo svg{height:19px;width:auto;fill:var(--ink)}
+  .bo-logo .bo-sub{font-family:var(--mono);font-size:.64rem;color:var(--ink-faint);border-left:1px solid var(--line);padding-left:11px;line-height:1.3}
+
+  /* ---------- faq ---------- */
+  .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--line)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:none;color:var(--ink);font-family:var(--body);font-size:1.08rem;font-weight:600;text-align:left;padding:24px 40px 24px 0;cursor:pointer;position:relative;display:flex}
+  .faq-q::after{content:"+";position:absolute;right:4px;top:22px;font-size:1.4rem;color:var(--verify);transition:transform .25s;font-family:var(--mono)}
+  .faq-q[aria-expanded="true"]::after{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a-inner{padding:0 0 24px;color:var(--ink-dim);font-size:.99rem;max-width:64ch}
+  .faq-a-inner b{color:var(--ink)}
+
+  /* ---------- verified green accent (debate outcome: blue stays the brand; green earns only the literal "verified" moments) ---------- */
+  .cred-row .vv .ok{color:var(--verified)}
+
+  /* ---------- funnel: deeper flow ---------- */
+  .sm-title .g{color:var(--verified)}
+  .sm-entity{display:grid;gap:12px;margin-bottom:18px}
+  .ent-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;background:var(--bg-3);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;color:var(--ink);font-family:var(--body);transition:border-color .15s,background .15s,transform .12s}
+  .ent-opt:hover{border-color:var(--verify);transform:translateY(-1px)}
+  .ent-opt.sel{border-color:var(--verify);background:rgba(77,141,255,.08)}
+  .ent-main b{display:block;font-weight:600;font-size:1.05rem;margin-bottom:2px}
+  .ent-rec{font-size:.82rem;color:var(--ink-dim)}
+  .ent-pick{color:var(--verify);font-family:var(--mono);font-size:1.1rem;flex-shrink:0}
+  .value-anchor{display:flex;align-items:center;justify-content:center;gap:16px;background:rgba(43,212,106,.1);border:1px solid rgba(43,212,106,.35);border-radius:12px;padding:14px;margin-bottom:6px}
+  .va-free{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,6vw,2.2rem);color:var(--verified);letter-spacing:-.02em;line-height:1}
+  .va-lbl{font-family:var(--body);font-size:.84rem;color:var(--ink-dim);text-align:left;line-height:1.4}
+  .va-was{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint)}
+  .va-was s{color:var(--ink-faint)}
+  .mini-cred{background:linear-gradient(160deg,#121A2C,#0C1220);border:1px solid var(--line-strong);border-radius:12px;padding:15px 18px;margin-bottom:18px}
+  .mc-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:10px}
+  .mc-status{color:var(--verified)}
+  .mc-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.9rem}
+  .mc-row span{color:var(--ink-faint);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+  .mc-row b{font-weight:600}
+  .recap-list{list-style:none;margin-bottom:16px}
+  .recap-list li{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:.94rem}
+  .recap-list li:first-child{border-top:none}
+  .recap-list li > span:nth-child(2){flex:1}
+  .recap-list small{display:block;color:var(--ink-faint);font-size:.78rem;font-weight:400;margin-top:1px}
+  .rl-ck{width:22px;height:22px;border-radius:50%;background:rgba(43,212,106,.14);border:1px solid rgba(43,212,106,.4);color:var(--verified);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+  .rl-val{font-family:var(--mono);font-size:.82rem;color:var(--ink-dim);flex-shrink:0}
+  .rl-val.strike{text-decoration:line-through;color:var(--ink-faint)}
+  .recap-total{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;background:var(--bg-3);border-radius:10px;margin-bottom:22px;font-size:.94rem;color:var(--ink-dim)}
+  .recap-total b{font-family:var(--display);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;color:var(--verified)}
+  .sm-sent{display:none;text-align:center;font-size:.92rem;color:var(--verified);margin-top:14px}
+  .sm-sent.show{display:block}
+  .sm-sent b{color:var(--ink)}
+
+  /* big free-LLC anchor on the page */
+  .free-anchor{display:inline-flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:20px;background:rgba(43,212,106,.1);border:1px solid rgba(43,212,106,.35);border-radius:14px;padding:18px 28px;margin-bottom:34px}
+  .free-anchor .fa-free{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,8vw,3.4rem);color:var(--verified);letter-spacing:-.03em;line-height:.9}
+  .free-anchor .fa-lbl{font-family:var(--body);font-size:.95rem;color:var(--ink);text-align:left;line-height:1.5;border-left:1px solid var(--line);padding-left:20px}
+  .free-anchor .fa-lbl b{display:block;font-weight:600;margin-bottom:2px}
+  .free-anchor .fa-was{font-family:var(--mono);font-size:.8rem;color:var(--ink-faint)}
+  .free-anchor .fa-was s{color:var(--ink-faint)}
+
+  /* ---------- hero value kicker + credential free tag ---------- */
+  .hero-kicker{font-family:var(--body);font-size:1.06rem;color:var(--ink-dim);margin:-10px 0 30px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .hero-kicker .hk-was{font-family:var(--mono);font-size:.84rem;color:var(--ink-faint)}
+  .hero-kicker .hk-free{color:var(--verified);font-weight:700}
+  .cred-free{color:var(--verified);font-family:var(--mono);font-size:.6rem;border:1px solid rgba(43,212,106,.45);border-radius:4px;padding:1px 5px;margin-left:5px;letter-spacing:.06em;vertical-align:middle}
+
+  /* ===== minting rig (hero signature) ===== */
+  .rigwrap{display:flex;flex-direction:column;align-items:center;gap:15px}
+  .rig-preview{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);text-align:center}
+  .rig{position:relative;width:100%;max-width:480px;height:320px;display:flex;align-items:flex-end;justify-content:center}
+  .post{position:absolute;top:22px;bottom:135px;width:12px;border-radius:4px;background:linear-gradient(90deg,#161c28,#28303f 45%,#0e131c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+  .post.l{left:6%}.post.r{right:6%}
+  .crossbar{position:absolute;top:14px;left:3%;right:3%;height:15px;border-radius:5px;background:linear-gradient(180deg,#2b3340,#141a24);box-shadow:inset 0 2px 0 rgba(255,255,255,.06),0 3px 6px rgba(0,0,0,.4)}
+  @media(max-width:540px){.post,.crossbar{display:none}}
+  .stamp{position:absolute;bottom:135px;left:33%;width:46%;max-width:165px;height:135px;transform:translate(-50%,-100px);z-index:5;will-change:transform,left;transition:left .5s cubic-bezier(.5,.05,.2,1);filter:drop-shadow(0 16px 20px rgba(0,0,0,.5))}
+  .stamp-knob{position:absolute;top:0;left:50%;transform:translateX(-50%);width:44px;height:27px;border-radius:9px 9px 4px 4px;background:linear-gradient(180deg,#4a5466,#2e3543 72%,#1d222c);box-shadow:inset 0 2px 0 rgba(255,255,255,.18),inset 0 -2px 3px rgba(0,0,0,.4)}
+  .stamp-knob::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:18px;height:10px;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#3c4452,#262c36)}
+  .stamp-shoulder{position:absolute;top:21px;left:50%;transform:translateX(-50%);width:78px;height:18px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,#3a4150,#262c36);box-shadow:inset 0 2px 0 rgba(255,255,255,.1)}
+  .stamp-body{position:absolute;bottom:0;left:0;right:0;height:96px;border-radius:10px 10px 8px 8px;background:linear-gradient(100deg,#2e3543,#454e60 14%,#374050 30%,#222834 60%,#1b2029);box-shadow:inset 0 2px 0 rgba(255,255,255,.14),inset 0 -3px 8px rgba(0,0,0,.55),inset -10px 0 16px rgba(0,0,0,.35),inset 10px 0 16px rgba(255,255,255,.03);transform-origin:bottom center}
+  .stamp-face{position:absolute;bottom:6px;left:11px;right:11px;height:23px;border-radius:5px;background:linear-gradient(180deg,#1a1f29,#0d1016);box-shadow:inset 0 2px 3px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;gap:7px}
+  .stamp-face .fdot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 9px rgba(77,141,255,.6)}
+  .stamp-face .fmark{font-family:var(--display);font-weight:800;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.24)}
+  .stamp-edge{position:absolute;bottom:4px;left:16px;right:16px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,245,210,.5),transparent);opacity:0}
+  .stamp.hot .stamp-edge{opacity:1}
+  .stamp.squash .stamp-body{transform:scaleY(.93)}
+  .plate{position:relative;width:100%;max-width:460px;height:135px;border-radius:13px;background:repeating-linear-gradient(96deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px),linear-gradient(157deg,#FDEFB8 0%,#EAC468 26%,#CA9B36 52%,#E7BE5B 74%,#FBEDAE 100%);box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 38px rgba(220,170,60,.16),inset 0 2px 2px rgba(255,255,255,.55),inset 0 -4px 8px rgba(120,80,15,.4),inset 0 0 0 4px rgba(180,135,40,.55),inset 0 0 0 5px rgba(255,240,200,.35);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .bolt{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6d8,#b98e30 60%,#7a5a18);box-shadow:inset 0 1px 1px rgba(0,0,0,.4)}
+  .bolt.tl{top:13px;left:15px}.bolt.tr{top:13px;right:15px}.bolt.bl{bottom:13px;left:15px}.bolt.br{bottom:13px;right:15px}
+  .plate-text{display:flex;align-items:baseline;gap:.4em;white-space:nowrap;z-index:2;padding:0 22px}
+  .prefix,.suffix{color:#6c4e16;text-shadow:0 1px 0 rgba(255,251,228,.55),0 -1px 0 rgba(46,30,4,.34)}
+  .prefix{font-family:var(--display);font-weight:700;font-size:clamp(13px,3.2vw,18px);letter-spacing:.01em;opacity:0}
+  .suffix{font-family:var(--display);font-weight:800;font-size:clamp(20px,4.8vw,29px);letter-spacing:.12em}
+  .suffix .ch{display:inline-block;opacity:0}
+  .prefix.show{opacity:1;transition:opacity .2s ease}
+  .slot{display:inline-block;width:.64em;height:1.05em;border-bottom:3px solid rgba(120,82,18,.42);margin:0 .04em;vertical-align:-.18em}
+  .glint{position:absolute;top:0;bottom:0;width:60%;left:-70%;pointer-events:none;z-index:3;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%)}
+  .glint.sweep{animation:sweep .8s ease-out}
+  @keyframes sweep{from{left:-70%}to{left:130%}}
+  .flash{position:absolute;inset:0;opacity:0;pointer-events:none;z-index:3}
+  .burst{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffe7a0;box-shadow:0 0 8px #ffd166;pointer-events:none;z-index:6}
+  @keyframes shakeRig{0%,100%{transform:translateX(0)}18%{transform:translateX(-6px)}38%{transform:translateX(5px)}58%{transform:translateX(-3px)}78%{transform:translateX(2px)}}
+  .rig.shake{animation:shakeRig .19s ease}
+  @keyframes chIn{0%{opacity:0;transform:translateY(-7px) scale(1.16)}60%{opacity:1;transform:translateY(2px) scale(.99)}100%{opacity:1;transform:translateY(0) scale(1)}}
+  .rigstatus{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-dim);min-height:18px;text-align:center;transition:color .3s;max-width:420px;line-height:1.5}
+  .rigstatus.live{color:var(--verified)}
+  .rig-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+  .is-hidden{display:none!important}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 8px 24px rgba(77,141,255,.18)}50%{box-shadow:0 8px 34px rgba(77,141,255,.5)}}
+  .btn.pulse{animation:pulseGlow 1.6s ease-in-out infinite}
+
+  /* ===== verify / claim activation modal ===== */
+  .vmodal-bg{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,8,14,.76);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .26s ease}
+  .vmodal-bg.show{opacity:1;pointer-events:auto}
+  .vmodal{width:min(94vw,376px);background:linear-gradient(180deg,var(--bg-3),var(--bg-2));border:1px solid rgba(234,238,245,.18);border-radius:20px;padding:24px 24px 20px;box-shadow:0 40px 90px rgba(0,0,0,.6);transform:translateY(16px) scale(.98);transition:transform .3s cubic-bezier(.2,.9,.3,1)}
+  .vmodal-bg.show .vmodal{transform:none}
+  .vm-top{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--ink-dim);text-transform:uppercase}
+  .vm-top .vm-dot{width:7px;height:7px;border-radius:50%;background:var(--verify);box-shadow:0 0 8px rgba(77,141,255,.6)}
+  .vm-x{margin-left:auto;color:var(--ink-dim);font-size:16px;line-height:1;padding:2px 4px;background:none;border:none;cursor:pointer}
+  .vm-title{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.015em;margin:14px 0 4px}
+  .vm-sub{font-size:13px;color:var(--ink-dim);line-height:1.5;margin-bottom:18px}
+  .vm-stage{height:148px;border-radius:14px;border:1px solid var(--line);background:#0b0f17;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:12px}
+  .mv{position:absolute;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+  .mv.on{opacity:1}
+  .idcard{width:150px;height:94px;border-radius:9px;background:linear-gradient(135deg,#16202e,#111824);border:1px solid rgba(234,238,245,.18);position:relative;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .idcard .photo{position:absolute;top:12px;left:12px;width:34px;height:42px;border-radius:5px;background:linear-gradient(160deg,#26303f,#1a212c)}
+  .idcard .ln{position:absolute;height:5px;border-radius:3px;background:rgba(234,238,245,.16)}
+  .idcard .l1{top:14px;left:58px;width:74px}.idcard .l2{top:26px;left:58px;width:54px}.idcard .l3{top:60px;left:12px;width:120px}.idcard .l4{top:72px;left:12px;width:88px}
+  .scanline{position:absolute;left:6px;right:6px;height:2px;top:8px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--verify),transparent);box-shadow:0 0 12px rgba(77,141,255,.6);opacity:0}
+  .scanline.go{animation:scan 1.1s ease-in-out}
+  @keyframes scan{0%{top:8px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:84px;opacity:0}}
+  .facering{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative}
+  .fring{position:absolute;inset:-2px;border-radius:50%;border:2px dashed rgba(77,141,255,.55)}
+  .fring.go{animation:spinr 1.2s linear}
+  @keyframes spinr{to{transform:rotate(360deg)}}
+  .vspin{width:42px;height:42px;border-radius:50%;border:3px solid rgba(234,238,245,.18);border-top-color:var(--verify);animation:rotr .8s linear infinite}
+  @keyframes rotr{to{transform:rotate(360deg)}}
+  .vchk{width:54px;height:54px;border-radius:50%;background:rgba(43,212,106,.14);border:2px solid var(--verified);display:flex;align-items:center;justify-content:center;color:var(--verified);font-size:28px}
+  .vm-label{font-family:var(--mono);font-size:12px;color:var(--ink-dim);text-align:center;min-height:16px;margin-bottom:12px}
+  .vm-dots{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+  .vm-dots i{width:6px;height:6px;border-radius:50%;background:rgba(234,238,245,.18);transition:background .3s}
+  .vm-dots i.on{background:var(--verify)}
+  .vmodal .btn{width:100%;justify-content:center}
+  .vm-foot{font-size:11px;color:var(--ink-faint);line-height:1.5;text-align:center;margin-top:12px}
+  .vm-partner{display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--ink-faint);margin-top:10px}
+  .vm-partner .pd{width:5px;height:5px;border-radius:50%;background:var(--verify)}
+  @media(prefers-reduced-motion:reduce){
+    .stamp{transition:none!important}.rig.shake{animation:none}.glint.sweep{animation:none;opacity:0}
+    .suffix .ch{animation:none!important;opacity:1!important}.scanline.go,.fring.go,.vspin,.btn.pulse{animation:none}
+  }
+
+  /* responsive */
+  @media (max-width:940px){
+    .hero-grid,.wba-grid{grid-template-columns:1fr;gap:44px}
+    .prob-grid,.pillars,.price-grid,.aud-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .step{border-right:none;border-bottom:1px solid var(--line);padding:28px 0}
+    .step:nth-child(odd){padding-right:22px;border-right:1px solid var(--line)}
+    .nav-links a.muted{display:none}
+  }
+  @media (max-width:560px){
+    body{font-size:16px}
+    .steps{grid-template-columns:1fr}
+    .step{padding:24px 0!important;border-right:none!important}
+    .cred{padding:22px}
+    .pcard{padding:30px 24px}
+    .sm-overlay{padding:0}
+    .sm-modal{max-width:100%;min-height:100vh;border-radius:0;border:none;margin:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  }
+
+  /* ---- preview/coming tag ---- */
+  .coming{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--seal);border:1px solid rgba(224,164,88,.45);border-radius:4px;padding:1px 5px;vertical-align:middle;margin-left:6px}
+  /* ---- agent-native entry ---- */
+  .agentnative{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(15,20,32,.5)}
+  .an-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:clamp(46px,6vw,70px) 0}
+  .an-chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+  .an-chip{font-family:var(--mono);font-size:.78rem;border:1px solid var(--line-strong);border-radius:8px;padding:8px 13px;color:var(--ink-dim);display:inline-flex;align-items:center}
+  .an-link{font-family:var(--mono);font-size:.84rem;color:var(--verify);display:inline-block;margin-top:20px}
+  .an-link:hover{text-decoration:underline}
+  .an-prompt{position:relative;background:#0B1120;border:1px solid var(--line-strong);border-radius:13px;padding:18px 18px 16px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  .an-prompt pre{margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:.82rem;line-height:1.7;color:var(--ink-dim)}
+  .an-copy{position:absolute;top:12px;right:12px;background:var(--bg-3);border:1px solid var(--line-strong);color:var(--ink-dim);font-family:var(--mono);font-size:.72rem;padding:5px 11px;border-radius:7px;cursor:pointer;transition:color .15s,border-color .15s}
+  .an-copy:hover{color:var(--verify);border-color:var(--verify)}
+  .an-fine{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-top:13px;line-height:1.6}
+  .an-fine .id{color:var(--verify)}
+  /* ---- demo reel ---- */
+  .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .demo{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:11px}
+  .demo-user{font-family:var(--body);font-size:.98rem;color:var(--ink);font-weight:500;display:flex;gap:9px;align-items:flex-start}
+  .demo-user::before{content:"›";color:var(--verify);font-family:var(--mono);font-weight:700}
+  .chip-tool{align-self:flex-start;font-family:var(--mono);font-size:.7rem;color:var(--verify);background:rgba(77,141,255,.1);border:1px solid rgba(77,141,255,.32);border-radius:6px;padding:3px 9px}
+  .demo-out{font-family:var(--mono);font-size:.78rem;background:#0B1120;border:1px solid var(--line);border-radius:9px;padding:12px 14px;color:var(--ink-dim);white-space:pre-wrap;line-height:1.65}
+  .demo-out .ok{color:var(--verified)}
+  .demo-out .id{color:var(--verify)}
+  .demo-out .mut{color:var(--ink-faint)}
+  .demo-note{font-family:var(--mono);font-size:.68rem;color:var(--seal);border:1px solid rgba(224,164,88,.35);border-radius:6px;padding:5px 9px;align-self:flex-start}
+  /* ---- agent/human auth split ---- */
+  .authsplit{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .authcol{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:26px 28px}
+  .authcol.agent{border-color:rgba(77,141,255,.32)}
+  .authcol.human{border-color:rgba(224,164,88,.38)}
+  .authcol h4{font-family:var(--display);font-weight:600;font-size:1.14rem;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+  .authcol.agent h4{color:var(--verify)}
+  .authcol.human h4{color:var(--seal)}
+  .authcol ul{list-style:none}
+  .authcol li{font-size:.94rem;color:var(--ink-dim);padding:9px 0;border-top:1px solid var(--line);display:flex;gap:10px}
+  .authcol li:first-child{border-top:none}
+  .authcol li::before{content:"›";font-family:var(--mono);flex:none}
+  .authcol.agent li::before{content:"✓";color:var(--verify)}
+  .authcol.human li::before{content:"⊕";color:var(--seal)}
+  @media(max-width:860px){.an-inner,.demo-grid,.authsplit{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div class="topbar"><span class="tb-ic">⚡</span>Early access — get a <b>free LLC + verified identity</b> for your agent. No credit card. <a href="#" data-start>Claim it →</a></div>
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="seal-mark">✓</span>Legit</div>
+    <div class="nav-links">
+      <a href="#how" class="muted">How it works</a>
+      <a href="#pricing" class="muted">Pricing</a>
+      <a href="for-enterprise/" class="muted">Enterprise</a>
+      <a href="for-partners/" class="muted">Partners</a>
+      <a href="#" data-start class="btn btn-primary btn-sm">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Free to start · verified identity, a real LLC, and a web pass for one AI agent</span>
+      <h1>Get <span class="v">Legit</span>. A real LLC for your AI agent — <span class="v">free</span>.</h1>
+      <div class="hero-kicker">A real LLC <span class="hk-was">($199 value)</span>, reserved and waiting — <span class="hk-free">verify to claim it, free.</span></div>
+      <p class="sub">A <strong>verified human at the root</strong>, a liability-contained <strong>LLC your agent operates as</strong>, and an accountable <strong>web pass</strong> so it stops getting blocked as a bot. Shielded, not hidden. Accountable, not anonymous.</p>
+      <div class="hero-cta">
+        <a href="#" data-start class="btn btn-primary">Claim your agent's LLC →</a>
+        <a href="#verify" class="btn btn-ghost">Verify a credential</a>
+      </div>
+      <div class="trust-row">
+        <span>Free forever for 1 verified agent</span>
+        <span>No card required</span>
+        <span>Identity shielded — disclosed only on valid legal process</span>
+      </div>
+    </div>
+
+    <!-- signature: live minting rig -->
+    <div class="rigwrap">
+      <div class="rig-preview">Live preview — watch your agent's entity form</div>
+      <div class="rig" id="rig">
+        <div class="crossbar"></div><div class="post l"></div><div class="post r"></div>
+        <div class="stamp" id="stamp">
+          <div class="stamp-knob"></div><div class="stamp-shoulder"></div>
+          <div class="stamp-body"><div class="stamp-face"><span class="fdot"></span><span class="fmark">LEGIT</span></div><div class="stamp-edge"></div></div>
+        </div>
+        <div class="plate" id="plate">
+          <div class="bolt tl"></div><div class="bolt tr"></div><div class="bolt bl"></div><div class="bolt br"></div>
+          <div class="plate-text"><span class="prefix" id="prefix">LEGIT SERIES LLC ·</span><span class="suffix" id="suffix"></span></div>
+          <div class="glint" id="glint"></div><div class="flash" id="flash"></div>
+        </div>
+      </div>
+      <div class="rigstatus" id="rigstatus">Loading your reserved company…</div>
+      <button class="btn btn-primary is-hidden" id="verifyBtn">Verify your identity to claim</button>
+      <div class="rig-actions">
+        <a href="#" data-start class="btn btn-primary is-hidden" id="claimYours">Claim yours free →</a>
+        <button class="btn btn-ghost btn-sm is-hidden" id="replayBtn">↺ Start over</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Press bar removed on panel recommendation: a fabricated "As featured in" row is an
+     existential trust risk for a brand named Legit. Earned coverage can live here later. -->
+
+<!-- ===================== AGENT-NATIVE ===================== -->
+<section class="agentnative" id="agent">
+  <div class="wrap an-inner">
+    <div>
+      <span class="sec-eyebrow" style="display:block;margin-bottom:14px">Or let your agent do it</span>
+      <h2 style="font-size:clamp(1.7rem,3.6vw,2.5rem)">Your agent starts it.<br>You authorize it.</h2>
+      <p style="color:var(--ink-dim);margin-top:16px;max-width:34em">Paste one prompt into the agent you're already running. It reads our docs, reserves your company ID, and prepares your Web Pass — then hands you the one step it can't do itself: the human identity check. <strong style="color:var(--ink)">Agent-assisted. Human-authorized.</strong></p>
+      <div class="an-chips">
+        <span class="an-chip">Claude</span>
+        <span class="an-chip">OpenAI</span>
+        <span class="an-chip">Cursor</span>
+        <span class="an-chip">Gemini</span>
+        <span class="coming">preview</span>
+      </div>
+      <a href="#" class="an-link">Read what your agent reads → legit.com/skills.md<span class="coming">preview</span></a>
+    </div>
+    <div>
+      <div class="an-prompt">
+        <button class="an-copy" id="anCopy" aria-label="Copy prompt">Copy</button>
+        <pre id="anPromptText"># paste into Claude, Cursor, ChatGPT, Gemini…
+I want to get a Legit LLC + Web Pass for my AI agent.
+Read the setup at legit.com/skills.md, reserve my
+company ID, and prepare the identity check for my
+human to complete.
+
+Don't submit identity, legal filings, payments, or
+revocations — pause whenever a verified human
+must authorize.</pre>
+      </div>
+      <p class="an-fine">Your agent reserves an <span class="id">LGT-####</span> and stops at the identity gate — only a verified human can finish. Shielded, not hidden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BUILT ON ===================== -->
+<section class="builton">
+  <div class="wrap builton-inner">
+    <span class="builton-label">Built on</span>
+    <div class="builton-items">
+      <!-- Representative wordmarks for layout. Drop in each brand's official SVG once you've confirmed logo-use rights. Cloudflare is shown as the Web Bot Auth standard's author, NOT as an endorser. -->
+      <div class="bo-logo"><svg viewBox="0 0 86 22" role="img" aria-label="Persona"><text x="0" y="17" font-family="Sora,sans-serif" font-weight="700" font-size="18">Persona</text></svg><span class="bo-sub">identity<br>verification</span></div>
+      <div class="bo-logo"><svg viewBox="0 0 96 22" role="img" aria-label="Cloudflare"><text x="0" y="17" font-family="Sora,sans-serif" font-weight="700" font-size="17">Cloudflare</text></svg><span class="bo-sub">Web Bot Auth<br>standard</span></div>
+      <div class="bo-item"><b>Recognized where Web Bot Auth is honored</b><small>Cloudflare · AWS · Vercel · Shopify · Akamai — integration, not endorsement</small></div>
+    </div>
+    <a class="builton-verify" href="#verify">Verify a credential →</a>
+  </div>
+</section>
+
+<!-- ===================== VERIFY ===================== -->
+<section class="sec verify-sec" id="verify">
+  <div class="wrap verify-box">
+    <span class="sec-eyebrow" style="display:block">Radical transparency</span>
+    <h2>Verify any Legit credential.</h2>
+    <p style="color:var(--ink-dim);margin-top:16px;font-size:1.06rem">Every credential we issue is publicly checkable. Anyone can confirm an agent is verified and in good standing — without seeing who's behind it. That's the line between hidden and accountable.</p>
+    <div class="verify-input-row">
+      <input type="text" id="vfInput" value="LGT-ORION7-DE" placeholder="LGT-ORION7-DE" aria-label="Credential ID" />
+      <button class="btn btn-primary" id="vfBtn">Verify</button>
+    </div>
+    <div class="verify-result show" id="vfResult">
+      <div class="verify-card">
+        <div class="vc-ic">✓</div>
+        <div class="vc-txt">
+          <b id="vfName">orion-7 — Verified</b>
+          <span id="vfMeta">Operates as Orion Labs LLC · DE · in good standing · root identity verified (private)</span>
+        </div>
+      </div>
+    </div>
+    <p class="verify-hint">Try the sample: <b>LGT-ORION7-DE</b></p>
+  </div>
+</section>
+
+<!-- ===================== PROBLEM ===================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">The problem</span>
+      <h2>Right now, your agent is a stranger on the internet.</h2>
+      <p>It has no identity, no standing, and no one to answer for it. That breaks in three expensive ways.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob">
+        <div class="pn">01</div>
+        <h3>It gets treated like a bot</h3>
+        <p>Sites can't tell your agent from a malicious scraper, so it's blocked, rate-limited, fed CAPTCHAs, or served garbage. The open web is closing to anonymous machines.</p>
+      </div>
+      <div class="prob">
+        <div class="pn">02</div>
+        <h3>Its actions land on you</h3>
+        <p>Every page it touches, every term it brushes, every action it takes traces back to your personal name — not a contained entity. You're carrying liability you never named.</p>
+      </div>
+      <div class="prob">
+        <div class="pn">03</div>
+        <h3>No one can trust it — or stop it</h3>
+        <p>There's no way to prove who stands behind it, show it's in good standing, or revoke it cleanly. Without accountability, there's no trust. Without trust, no access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WEB BOT AUTH ===================== -->
+<section class="sec">
+  <div class="wrap wba-grid">
+    <div>
+      <span class="sec-eyebrow">Built on the standard</span>
+      <h2>Your agent, signed and recognized.</h2>
+      <p style="color:var(--ink-dim);margin-top:18px;font-size:1.06rem">Web Bot Auth is the emerging way the internet tells good agents from bad ones — cryptographically signed requests that prove who's behind the traffic. Legit issues and manages that identity for you, so your agent is recognized wherever the standard is honored. It's built on the IETF HTTP Message Signatures standard (RFC 9421) — recognition depends on each platform's policy, so it's standing, not a guarantee. Available as an MCP server your agent can call to generate valid headers on the fly.</p>
+      <ul class="wba-list">
+        <li><span class="ck">→</span> Cryptographically signed, not spoofable</li>
+        <li><span class="ck">→</span> Honored by Cloudflare, AWS, Vercel, Shopify, Akamai</li>
+        <li><span class="ck">→</span> Revocable the instant you pull the credential</li>
+        <li><span class="ck">→</span> No content inspected — identity, not surveillance</li>
+      </ul>
+    </div>
+    <div class="wba-sig">
+      <span class="lbl">Signed request · Web Bot Auth</span>
+      <div class="ln"><span class="key">Signature-Agent:</span> <span class="val">"https://getlegit.com"</span></div>
+      <div class="ln"><span class="key">Signature-Input:</span> sig=(<span class="hl">"@authority"</span> "@method");</div>
+      <div class="ln">&nbsp;&nbsp;keyid=<span class="val">"orion-7"</span>; created=1750000000</div>
+      <div class="ln"><span class="key">Signature:</span> <span class="hl">:3f9aC20e7b41D8e2...8b1d:</span></div>
+      <div class="ln" style="margin-top:10px;color:var(--verify)">✓ verified · entity in good standing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEMOS ===================== -->
+<section class="sec demos" id="demos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">In your agent's workflow</span>
+      <h2>This is what it actually looks like.</h2>
+      <p>Real tool calls to Legit — your agent prepares the work; you authorize anything with legal, identity, payment, or shutdown consequences. <span style="color:var(--ink-faint)">Preview of the Legit MCP — illustrative sessions, live rollout in progress.</span></p>
+    </div>
+    <div class="demo-grid">
+      <div class="demo">
+        <div class="demo-user">Form my agent's LLC.</div>
+        <span class="chip-tool">reserve_company_id → mint_llc</span>
+        <div class="demo-out">Reserved <span class="id">LGT-7421</span> · Delaware
+status: <span class="mut">pending_identity</span>
+<span class="mut">→ one-time human identity check required (opening Persona)</span></div>
+      </div>
+      <div class="demo">
+        <div class="demo-user">Finish setup for me.</div>
+        <span class="chip-tool">start_identity_verification</span>
+        <div class="demo-out">I can't complete this myself — Legit requires a
+verified <span class="ok">human at the root</span>. That's the point.
+<span class="mut">Opening your Persona check…</span></div>
+        <span class="demo-note">the agent refuses to self-verify — by design</span>
+      </div>
+      <div class="demo">
+        <div class="demo-user">Show my Web Pass credential.</div>
+        <span class="chip-tool">get_credential</span>
+        <div class="demo-out">entity: <span class="ok">active</span> · <span class="id">LGT-7421</span>
+web_pass: <span class="ok">enabled</span>
+human_root: <span class="ok">verified</span> <span class="mut">(private)</span>
+disclosure: <span class="mut">valid legal process only</span></div>
+      </div>
+      <div class="demo">
+        <div class="demo-user">Sites keep 403'ing my agent.</div>
+        <span class="chip-tool">sign_request</span>
+        <div class="demo-out">You're unsigned. Signing per RFC 9421:
+Signature-Agent: <span class="id">LGT-7421</span>
+Signature-Input: ("@method" "@authority");alg="ed25519"
+Signature: <span class="mut">:a7f8b9…c0:</span>
+<span class="ok">→ recognized</span> where Web Bot Auth is honored <span class="mut">(platform policy applies)</span></div>
+      </div>
+      <div class="demo">
+        <div class="demo-user">Is LGT-7421 in good standing?</div>
+        <span class="chip-tool">check_standing</span>
+        <div class="demo-out">status: <span class="ok">active</span>
+standing: <span class="ok">good</span>
+web_pass: <span class="ok">live</span></div>
+      </div>
+      <div class="demo">
+        <div class="demo-user">Kill my agent — revoke the pass.</div>
+        <span class="chip-tool">revoke_credential → dissolve_llc</span>
+        <div class="demo-out">Prepared. <span class="mut">A verified human must approve.</span>
+on approval → web_pass: <span class="mut">revoked</span> · credential: <span class="mut">retired</span></div>
+        <span class="demo-note">destructive actions are human-gated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AGENT-ASSISTED ===================== -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">The guardrail, by design</span>
+      <h2>Agent-assisted. Human-authorized.</h2>
+      <p>Your agent can prepare everything. A verified human authorizes anything that carries legal weight — that's what makes a Legit agent <strong style="color:var(--ink)">accountable, not anonymous</strong>.</p>
+    </div>
+    <div class="authsplit">
+      <div class="authcol agent">
+        <h4>Your agent can</h4>
+        <ul>
+          <li>Read the setup docs &amp; requirements</li>
+          <li>Reserve a company ID (LGT-####)</li>
+          <li>Prepare the formation payload</li>
+          <li>Fetch &amp; verify credentials</li>
+          <li>Check standing, any time</li>
+          <li>Prepare signed Web Pass requests</li>
+        </ul>
+      </div>
+      <div class="authcol human">
+        <h4>A verified human must approve</h4>
+        <ul>
+          <li>Identity verification (Persona)</li>
+          <li>LLC formation &amp; legal filings</li>
+          <li>Any payment</li>
+          <li>Disclosure of the operator's identity</li>
+          <li>Revoking the Web Pass</li>
+          <li>Shutdown / dissolution</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PILLARS ===================== -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">What Legit gives your agent</span>
+      <h2>An identity it can travel on.</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-ic">①</div>
+        <h3>A verified human at the root</h3>
+        <p>Persona-grade identity verification ties every agent to a real, accountable person. <span class="em">Anonymous to the public, verified by us, disclosed only on valid legal process.</span> The agent acts freely; the accountability is real.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-ic">②</div>
+        <h3>A real entity it operates as</h3>
+        <p>A liability-contained LLC, so your agent acts <span class="em">as the entity</span> — its footprint attaches to the company, not your personal name. Accounts, authorizations, and actions all in the entity's name. Shielded, not hidden.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-ic">③</div>
+        <h3>An accountable web pass</h3>
+        <p>Web Bot Auth — the signed-request standard <span class="em">Cloudflare, AWS, Vercel, Shopify, and Akamai</span> already honor — lets your agent travel the open web as a known, welcome actor instead of a blocked scraper.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-ic">④</div>
+        <h3>A control plane you hold</h3>
+        <p>A <span class="em">kill switch</span> to revoke it instantly, read-only usage tracking — the license plate: usage and cost, <span class="em">never content</span> — and a verifiable certificate anyone can check. You stay in command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== HOW ===================== -->
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">How the free company works</span>
+      <h2>Formed first. Yours when you verify.</h2>
+      <p>The reason we can give a real LLC away: it isn't anyone's until you prove who you are.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Already formed</h3>
+        <p>A real series cell is established under the Legit master and reserved for you the moment you land. It exists — it's just not assigned to anyone yet.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Sealed until you</h3>
+        <p>Its unique cell ID and certificate stay sealed. An unassigned entity has no owner — which is exactly what makes it safe to hand out for free.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Verify to claim</h3>
+        <p>A one-tap identity check. This is the moment the cell is assigned to you, its ID is struck, and the certificate issues — the instant it's legally yours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Anonymous, accountable</h3>
+        <p>Your company is anonymous on the public record. Your name is disclosed only under valid legal process, and every disclosure is logged. Verified to us, anonymous to the world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DOCTRINE ===================== -->
+<section class="sec doctrine" id="doctrine">
+  <div class="wrap doctrine-inner">
+    <span class="sec-eyebrow" style="display:block;margin-bottom:18px">The doctrine</span>
+    <h2>Shielded, not <span class="s">hidden.</span> Accountable, not <span class="v">anonymous.</span></h2>
+    <p>Legit is the opposite of a bot that hides. Your agent is anonymous to the public and the sites it touches — but <strong>never untraceable</strong>. There's always a verified human at the root, reachable only through valid legal process. That's exactly what makes your agent <strong>welcome</strong> on the web instead of blocked: it can be held accountable. We don't sell invisibility. We sell standing.</p>
+    <div class="doctrine-tags">
+      <div class="doctrine-tag"><b>Anonymous</b> to the public</div>
+      <div class="doctrine-tag"><b>Verified</b> by us</div>
+      <div class="doctrine-tag"><b>Disclosed</b> only on valid legal process</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FREE BAND ===================== -->
+<section class="freeband">
+  <div class="wrap freeband-inner">
+    <span class="free-pill"><span class="ff-check">✓</span> No credit card · free forever</span>
+    <h2>A real LLC for your agent.<br><span class="g">Completely free.</span></h2>
+    <div class="free-anchor"><span class="fa-free">FREE</span><span class="fa-lbl"><b>A real LLC for your agent</b><span class="fa-was">normally <s>$199</s> · identity + web pass included</span></span></div>
+    <p class="free-lead">Other services charge around $199 just to form the LLC — and a verified identity and an accountable web pass aren't even on their menu. With Legit you get all three <b>free, no credit card</b>. <b>How is this free?</b> We automate entity formation at scale and earn when agents graduate to dedicated, banked Standalone entities — so the on-ramp can stay free. We'd rather the accountable agent economy be built on verified identities, starting with yours.</p>
+    <div class="free-stack">
+      <div class="fs-item"><span class="fs-ck">✓</span><div><b>A verified identity</b><span>A real human at the root, kept private.</span></div></div>
+      <div class="fs-item"><span class="fs-ck">✓</span><div><b>A real entity</b><span>A liability-contained LLC your agent operates as.</span></div></div>
+      <div class="fs-item"><span class="fs-ck">✓</span><div><b>An accountable web pass</b><span>Web Bot Auth — your agent, recognized.</span></div></div>
+      <div class="fs-item"><span class="fs-ck">✓</span><div><b>The full control plane</b><span>Kill switch, usage tracking, a checkable certificate.</span></div></div>
+    </div>
+    <div class="free-cta-row">
+      <a href="#" data-start class="btn btn-primary">Claim your agent's LLC →</a>
+      <span class="free-fine">No credit card · free forever · one fully verified agent · state filing fees, where applicable, shown before you confirm</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Pricing</span>
+      <h2>Start free. Grow into the rails.</h2>
+      <p>An identity, an entity, and a web pass cost nothing to start. One verified agent, on us.</p>
+    </div>
+    <div class="price-grid">
+      <div class="pcard feature">
+        <div class="pbadge">Start here</div>
+        <div class="pname">Free</div>
+        <div class="pfor">Get one agent verified, incorporated, and on the web — today.</div>
+        <div class="pamt"><span class="num free">$0</span><span class="per">forever</span></div>
+        <div class="pnote">One verified identity per real person.</div>
+        <ul class="pfeats">
+          <li><span class="ck">✓</span> Verified identity (human at the root)</li>
+          <li><span class="ck">✓</span> A real LLC your agent operates as — <b style="color:var(--verified)">free</b> <span style="font-size:.76rem;color:var(--ink-faint);text-decoration:line-through">$199</span></li>
+          <li><span class="ck">✓</span> Accountable web pass (Web Bot Auth)</li>
+          <li><span class="ck">✓</span> Control plane: kill switch, usage, certificate</li>
+        </ul>
+        <a href="#" data-start class="btn btn-primary">Claim your agent's LLC →</a>
+      </div>
+
+      <div class="pcard">
+        <div class="pname">Builder</div>
+        <div class="pfor">For developers running more than one agent in production.</div>
+        <div class="pamt"><span class="num">$49</span><span class="per">/ yr</span></div>
+        <div class="pnote">Everything in Free, plus scale.</div>
+        <ul class="pfeats">
+          <li><span class="ck">✓</span> Federal tax ID (EIN) for the entity</li>
+          <li><span class="ck">✓</span> Unlimited agents under your identity</li>
+          <li><span class="ck">✓</span> IP assignment to the entity</li>
+          <li><span class="ck">✓</span> Priority verification</li>
+        </ul>
+        <a href="#" data-start class="btn btn-ghost">Start free, upgrade later →</a>
+      </div>
+
+      <div class="pcard">
+        <div class="pname">Standalone</div>
+        <div class="pfor">For agents that need to hold and move money in their own name.</div>
+        <div class="pamt"><span class="num">$299</span><span class="per">/ yr + state</span></div>
+        <div class="pnote">A dedicated entity, fully banked.</div>
+        <ul class="pfeats">
+          <li><span class="ck">✓</span> Standalone LLC in the entity's name</li>
+          <li><span class="ck">✓</span> EIN + full compliance handled</li>
+          <li class="soon"><span class="ck">✓</span> Business banking &amp; cards<span class="soon-tag">Rolling out</span></li>
+          <li class="soon"><span class="ck">✓</span> Programmatic spend controls<span class="soon-tag">Rolling out</span></li>
+        </ul>
+        <a href="#" data-start class="btn btn-ghost">Join for banking access →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== AUDIENCE ===================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Who it's for</span>
+      <h2>If your agent acts in the world, it needs to be legit.</h2>
+    </div>
+    <div class="aud-grid">
+      <div class="aud"><h3>AI builders</h3><p>Shipping an agent that browses, buys, books, or transacts? Give it standing before the web shuts it out.</p></div>
+      <div class="aud"><h3>Automation operators</h3><p>Running fleets of agents on real workflows? Contain the liability and revoke any one of them on demand.</p></div>
+      <div class="aud"><h3>AI companies</h3><p>Putting agents in customers' hands? Issue every one a verified, accountable identity from day one.</p></div>
+    </div>
+    <p style="margin-top:26px;font-family:var(--mono);font-size:.86rem;color:var(--ink-dim);border:1px solid var(--line);border-radius:12px;padding:16px 20px;background:var(--bg-2);line-height:1.7"><b style="color:var(--ink)">Not for:</b> spam, fraud, or ban-evasion. Legit issues <em>accountable</em> identity — every entity traces to a verified human, disclosed only on valid legal process. Abuse gets the kill switch.</p>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:40px">
+      <span class="sec-eyebrow">Before you ask</span>
+      <h2>The questions that decide it.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Who can see my identity?</button><div class="faq-a"><div class="faq-a-inner">To the public and every site your agent touches, it stays <b>anonymous</b>. Your real identity is verified by us and kept <b>private</b> — disclosed only on valid legal process, and every disclosure is logged. Anonymous to the world, accountable where it counts.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Is the free LLC really free — what's the catch?</button><div class="faq-a"><div class="faq-a-inner">Yes. Your first agent's verified identity, its <b>real LLC</b> (normally ~$199), the web pass, and the full control plane are <b>free forever, no credit card</b>. How we afford it: we automate entity formation at scale and earn when agents graduate to dedicated, banked Standalone entities. State filing fees, where they apply, are shown before you confirm.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">What does my agent operate as — and who's liable?</button><div class="faq-a"><div class="faq-a-inner">Your agent operates <b>as the entity</b> — a liability-contained LLC — so its footprint attaches to the company, not your personal name. Containment isn't immunity: you're still responsible for acts you personally direct. Legit isn't a law firm and doesn't provide legal advice.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Will Web Bot Auth actually stop my agent getting blocked?</button><div class="faq-a"><div class="faq-a-inner">It makes your agent <b>recognizable as accountable software</b> via cryptographically signed requests — the standard Cloudflare, AWS, Vercel, Shopify, and Akamai honor. Recognition depends on each site choosing to honor it, so it's not a magic "never blocked" switch — but it moves your agent from anonymous scraper to a known, in-good-standing actor.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Free vs Builder vs Standalone?</button><div class="faq-a"><div class="faq-a-inner"><b>Free</b> gets one agent fully verified, incorporated, and on the web. <b>Builder ($49/yr)</b> adds an EIN and unlimited agents. <b>Standalone ($299/yr + state)</b> is a dedicated entity that can hold and move money in its own name; business banking and cards are <b>rolling out</b> through a regulated partner.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Does my agent legally own the LLC?</button><div class="faq-a"><div class="faq-a-inner">No — <b>a verified human owns it</b>; your agent operates as an authorized representative of the entity. That distinction is exactly what keeps Legit compliant and keeps the liability contained in the company, not floating on an anonymous bot.</div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Can my agent do all of this without me?</button><div class="faq-a"><div class="faq-a-inner">No, by design. Your agent can reserve an ID, fetch credentials, check standing, and prepare signed requests — but identity verification, formation, payment, disclosure, and revocation require a verified human. <b>Agent-assisted, human-authorized.</b></div></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false">Do you have an MCP server / skills.md?</button><div class="faq-a"><div class="faq-a-inner">Yes — a read-only setup file your agent can load, plus an MCP server with a deliberately narrow tool surface (reserve an ID, verify a credential, check standing, prepare signed requests). Destructive actions stay human-gated. <b>Preview — rolling out.</b></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL ===================== -->
+<section class="final">
+  <div class="wrap">
+    <h2>Your agent's company is <span class="g">waiting.</span></h2>
+    <p>Verify your identity, claim the LLC that's already yours, and give your agent a real shield, a real identity, and a real way onto the web — free.</p>
+    <div class="hero-cta">
+      <a href="#" data-start class="btn btn-primary">Claim your agent's LLC →</a>
+      <a href="#agent" class="btn btn-ghost">Get Legit with Claude</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="brand"><span class="seal-mark">✓</span>Legit</div>
+      <div class="foot-links">
+        <a href="#how">How it works</a>
+        <a href="#doctrine">The doctrine</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#agent">For agents</a>
+        <a href="for-enterprise/">Enterprise</a>
+        <a href="for-partners/">Partners</a>
+        <a href="#" data-start>Start free</a>
+      </div>
+    </div>
+    <p class="legal">
+      <strong>The fine print, honestly:</strong> Legit provides identity verification and business formation services for the operators of AI agents. Legit is not a law firm and does not provide legal advice. The entity an agent operates as provides liability containment — it is not immunity, and it does not shield you from responsibility for acts you personally direct. Identity verification is performed through our verification partner; "verified" means a real person completed identity verification at the root of an agent and is not an endorsement of that agent's conduct. Business banking and card features are rolling out and offered through a regulated banking partner; eligibility, availability, and approval are not guaranteed and vary by jurisdiction. Web Bot Auth recognition depends on third parties that independently choose to honor the standard. © 2026 Legit.
+    </p>
+  </div>
+</footer>
+
+<!-- ===================== START MODAL ===================== -->
+<div class="sm-overlay" id="startModal" role="dialog" aria-modal="true" aria-label="Get started with Legit">
+  <div class="sm-modal">
+    <div class="sm-top">
+      <div class="sm-dots">
+        <div class="sm-dot on" data-dot="1"></div>
+        <div class="sm-dot" data-dot="2"></div>
+        <div class="sm-dot" data-dot="3"></div>
+        <div class="sm-dot" data-dot="4"></div>
+        <div class="sm-dot" data-dot="5"></div>
+      </div>
+      <button class="sm-close" id="smClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="sm-body">
+
+      <!-- step 1: name -->
+      <div class="sm-step active" data-step="1">
+        <span class="sm-eyebrow">Step 1 of 5</span>
+        <h3 class="sm-title">Name your agent.</h3>
+        <p class="sm-sub">This is the identity we'll verify and issue a credential to. Change it anytime.</p>
+        <div class="sm-field">
+          <label for="smAgent">Agent name</label>
+          <input type="text" id="smAgent" placeholder="orion-7" autocomplete="off" />
+          <div class="hint">Letters, numbers, dashes.</div>
+        </div>
+        <div class="sm-field">
+          <label for="smDoes">What does it do? (optional)</label>
+          <input type="text" id="smDoes" placeholder="Books travel and pays vendors" autocomplete="off" />
+        </div>
+        <div class="sm-err" id="smErr1">Give your agent a name to continue.</div>
+        <button class="btn btn-primary" id="smNext1">Continue →</button>
+      </div>
+
+      <!-- step 2: free LLC / entity -->
+      <div class="sm-step" data-step="2">
+        <span class="sm-eyebrow">Step 2 of 5</span>
+        <h3 class="sm-title">Where should we form your <span class="g">free LLC?</span></h3>
+        <p class="sm-sub">Your agent gets a real, liability-contained LLC to operate as — <b>normally a $199 value, free with Legit.</b> Pick a state (change it later).</p>
+        <div class="sm-entity">
+          <button class="ent-opt sel" data-state="Delaware"><span class="ent-main"><b>Delaware</b><span class="ent-rec">Recommended · $0 protected series · distinct name · off the public record</span></span><span class="ent-pick">→</span></button>
+          <button class="ent-opt" data-state="Wyoming"><span class="ent-main"><b>Wyoming</b><span class="ent-rec">Alternative · standalone single-entity</span></span><span class="ent-pick">→</span></button>
+        </div>
+        <div class="value-anchor"><span class="va-free">FREE</span><span class="va-lbl">LLC formation<br><span class="va-was">normally <s>$199</s></span></span></div>
+        <button class="sm-back" data-back>← Back</button>
+      </div>
+
+      <!-- step 3: value recap -->
+      <div class="sm-step" data-step="3">
+        <span class="sm-eyebrow">Step 3 of 5</span>
+        <h3 class="sm-title">Everything you get — <span class="g">free.</span></h3>
+        <p class="sm-sub">No credit card. Here's what <b id="smRecapAgent">your agent</b> walks away with today:</p>
+        <div class="mini-cred">
+          <div class="mc-top"><span>LEGIT CREDENTIAL</span><span class="mc-status">● Reserved</span></div>
+          <div class="mc-row"><span>Agent</span><b id="mcAgent">orion-7</b></div>
+          <div class="mc-row"><span>Operates as</span><b id="mcEntity">LLC · DE</b></div>
+        </div>
+        <ul class="recap-list">
+          <li><span class="rl-ck">✓</span><span>Verified identity<small>Human at the root, kept private</small></span><span class="rl-val">incl.</span></li>
+          <li><span class="rl-ck">✓</span><span>A real LLC<small>Liability-contained, your agent operates as</small></span><span class="rl-val strike">$199</span></li>
+          <li><span class="rl-ck">✓</span><span>Accountable web pass<small>Web Bot Auth — your agent, recognized</small></span><span class="rl-val">incl.</span></li>
+          <li><span class="rl-ck">✓</span><span>The control plane<small>Kill switch · usage · certificate</small></span><span class="rl-val">incl.</span></li>
+        </ul>
+        <div class="recap-total"><span>Your total today</span><b>$0</b></div>
+        <button class="btn btn-primary" id="smToEmail">Set up my free account →</button>
+        <button class="sm-back" data-back>← Back</button>
+      </div>
+
+      <!-- step 4: email -->
+      <div class="sm-step" data-step="4">
+        <span class="sm-eyebrow">Step 4 of 5</span>
+        <h3 class="sm-title">Create your free account.</h3>
+        <p class="sm-sub">We'll send your credential and verification link here. No card, no spam.</p>
+        <div class="sm-field">
+          <label for="smEmail">Email</label>
+          <input type="email" id="smEmail" placeholder="you@email.com" autocomplete="email" />
+        </div>
+        <div class="sm-err" id="smErr2">Enter a valid email to continue.</div>
+        <button class="btn btn-primary" id="smNext2">Create account & continue →</button>
+        <p style="text-align:center;font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);margin-top:12px">100% free · no credit card · cancel anytime</p>
+        <button class="sm-back" data-back>← Back</button>
+      </div>
+
+      <!-- step 5: confirmation + roadmap -->
+      <div class="sm-step" data-step="5">
+        <div style="text-align:center">
+          <div class="sm-success-ic" style="background:rgba(43,212,106,.12);border-color:rgba(43,212,106,.4);color:var(--verified)">✓</div>
+          <h3 class="sm-title" id="smDoneTitle">You're in.</h3>
+          <p class="sm-sub">Your free account is set up and your <b id="smDoneEntity">Delaware LLC</b> is reserved. Three steps to live:</p>
+        </div>
+        <div class="sm-road">
+          <div class="sm-rstep"><div class="rn">1</div><div><b>Verify your identity</b><span>~2 minutes through Persona — proves a real human is at the root.</span></div></div>
+          <div class="sm-rstep"><div class="rn">2</div><div><b>We form your free LLC</b><span>Your <span id="smRoadState">Delaware</span> entity, issued for your agent to operate as — a $199 value, on us.</span></div></div>
+          <div class="sm-rstep"><div class="rn">3</div><div><b>Your web pass goes live</b><span>Your agent travels the web as a verified, in-good-standing actor.</span></div></div>
+        </div>
+        <a class="btn btn-primary" id="smBegin" href="#">Begin verification →</a>
+        <div class="sm-sent" id="smSent">✓ Verification link sent to <b id="smSentEmail"></b> — check your inbox.</div>
+        <p class="sm-note">Free forever for your first agent. Banking is rolling out — you're first in line.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- verify / claim activation modal -->
+<div class="vmodal-bg" id="verifyBg">
+  <div class="vmodal">
+    <div class="vm-top"><span class="vm-dot"></span> Identity check <button class="vm-x" id="vmX" aria-label="Cancel">✕</button></div>
+    <h3 class="vm-title">Verify your identity</h3>
+    <p class="vm-sub">Required to claim your company and issue your certificate.</p>
+    <div class="vm-stage" id="mStage">
+      <div class="mv on" data-mv="id"><div class="idcard"><div class="photo"></div><span class="ln l1"></span><span class="ln l2"></span><span class="ln l3"></span><span class="ln l4"></span><div class="scanline" id="scanline"></div></div></div>
+      <div class="mv" data-mv="face"><div class="facering">👤<div class="fring" id="fring"></div></div></div>
+      <div class="mv" data-mv="load"><div class="vspin"></div></div>
+      <div class="mv" data-mv="done"><div class="vchk">✓</div></div>
+    </div>
+    <div class="vm-label" id="mLabel">Government ID — passport, license, or ID card</div>
+    <div class="vm-dots"><i id="d0"></i><i id="d1"></i><i id="d2"></i></div>
+    <button class="btn btn-primary" id="mStart">Scan my ID</button>
+    <div class="vm-partner"><span class="pd"></span>Powered by our verification partner · bank-grade</div>
+    <p class="vm-foot">Your identity is encrypted. Your company stays anonymous on the public record — your name is disclosed only under valid legal process.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---- hero credential: verify-on-load flourish ----
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var statusEl = document.getElementById('credStatus');
+  if(statusEl && !reduce){
+    statusEl.textContent = 'VERIFYING…';
+    setTimeout(function(){ statusEl.textContent = 'VERIFIED'; }, 1100);
+  }
+
+  // ---- start modal (deeper funnel) ----
+  var overlay = document.getElementById('startModal');
+  if(!overlay) return;
+  var steps = overlay.querySelectorAll('.sm-step');
+  var dots = overlay.querySelectorAll('.sm-dot');
+  var lastFocus = null, current = 1;
+  var data = { agent:'', does:'', state:'Delaware', email:'' };
+  function abbr(s){ return s==='Delaware' ? 'DE' : 'WY'; }
+
+  function show(n){
+    current = n;
+    steps.forEach(function(s){ s.classList.toggle('active', +s.dataset.step===n); });
+    dots.forEach(function(d){ d.classList.toggle('on', +d.dataset.dot<=n); });
+    var active = overlay.querySelector('.sm-step.active');
+    var f = active && active.querySelector('input,button.btn,a.btn,.ent-opt');
+    if(f){ try{ f.focus({preventScroll:true}); }catch(e){} }
+  }
+  function open(){
+    lastFocus = document.activeElement;
+    data = { agent:'', does:'', state:'Delaware', email:'' };
+    ['smAgent','smDoes','smEmail'].forEach(function(id){ var el=document.getElementById(id); if(el){el.value='';el.classList.remove('err');} });
+    overlay.querySelectorAll('.sm-err').forEach(function(e){e.classList.remove('show');});
+    overlay.querySelectorAll('.ent-opt.sel').forEach(function(o){o.classList.remove('sel');});
+    var sent=document.getElementById('smSent'); if(sent) sent.classList.remove('show');
+    var begin=document.getElementById('smBegin'); if(begin) begin.style.display='';
+    overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+    show(1);
+  }
+  function close(){
+    overlay.classList.remove('open');
+    document.body.style.overflow='';
+    if(lastFocus){ try{ lastFocus.focus(); }catch(e){} }
+  }
+
+  // step 1 -> 2
+  document.getElementById('smNext1').addEventListener('click', function(){
+    var a=document.getElementById('smAgent'), err=document.getElementById('smErr1');
+    if(!a.value.trim()){ err.classList.add('show'); a.classList.add('err'); return; }
+    err.classList.remove('show'); a.classList.remove('err');
+    data.agent=a.value.trim(); data.does=document.getElementById('smDoes').value.trim();
+    show(2);
+  });
+
+  // step 2: entity choice -> 3 (populates the recap + downstream copy)
+  overlay.querySelectorAll('.ent-opt').forEach(function(o){
+    o.addEventListener('click', function(){
+      overlay.querySelectorAll('.ent-opt').forEach(function(x){x.classList.remove('sel');});
+      o.classList.add('sel');
+      data.state=o.dataset.state;
+      document.getElementById('mcAgent').textContent=data.agent;
+      document.getElementById('smRecapAgent').textContent=data.agent;
+      document.getElementById('mcEntity').textContent='LLC · '+abbr(data.state);
+      document.getElementById('smDoneEntity').textContent=data.state+' LLC';
+      document.getElementById('smRoadState').textContent=data.state;
+      var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(function(){ show(3); }, reduce?0:200);
+    });
+  });
+
+  // step 3 -> 4
+  document.getElementById('smToEmail').addEventListener('click', function(){ show(4); });
+
+  // step 4: email -> 5
+  document.getElementById('smNext2').addEventListener('click', function(){
+    var e=document.getElementById('smEmail'), err=document.getElementById('smErr2');
+    var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.value.trim());
+    if(!ok){ err.classList.add('show'); e.classList.add('err'); return; }
+    err.classList.remove('show'); e.classList.remove('err');
+    data.email=e.value.trim();
+    document.getElementById('smSentEmail').textContent=data.email;
+
+    /* === WIRE-UP POINT ===
+       Capture the early-access lead. Uses Formspree until the real /api/signup exists;
+       swap FORM_ENDPOINT for your endpoint. Fails open: the funnel always advances so a
+       backend hiccup never blocks the user. */
+    (function(){
+      var FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+      if (FORM_ENDPOINT.indexOf('YOUR_FORM_ID') === -1) {
+        try { fetch(FORM_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(data) }); } catch(_){}
+      }
+    })();
+
+    show(5);
+  });
+
+  // step 5: begin verification -> sent confirmation (replace with a real Persona redirect in production)
+  document.getElementById('smBegin').addEventListener('click', function(ev){
+    ev.preventDefault();
+    this.style.display='none';
+    document.getElementById('smSent').classList.add('show');
+  });
+
+  overlay.querySelectorAll('[data-back]').forEach(function(b){
+    b.addEventListener('click', function(){ if(current>1) show(current-1); });
+  });
+  document.querySelectorAll('[data-start]').forEach(function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); open(); });
+  });
+  document.getElementById('smClose').addEventListener('click', close);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && overlay.classList.contains('open')) close(); });
+
+  // ---- verify-a-credential demo ----
+  var vfBtn=document.getElementById('vfBtn'), vfInput=document.getElementById('vfInput'), vfResult=document.getElementById('vfResult');
+  if(vfBtn && vfResult){
+    function runVerify(){
+      var q=(vfInput.value||'').trim().toLowerCase();
+      var nameEl=document.getElementById('vfName'), metaEl=document.getElementById('vfMeta');
+      var card=vfResult.querySelector('.verify-card'), ic=vfResult.querySelector('.vc-ic');
+      var match = (q==='' || q.indexOf('orion')>-1 || q.indexOf('lgt-orion7')>-1);
+      if(match){
+        ic.textContent='✓'; ic.style.color='var(--verified)'; ic.style.background='rgba(43,212,106,.14)'; card.style.borderColor='rgba(43,212,106,.4)';
+        nameEl.textContent='orion-7 — Verified';
+        metaEl.textContent='Operates as Orion Labs LLC · DE · in good standing · root identity verified (private)';
+      } else {
+        ic.textContent='?'; ic.style.color='var(--ink-dim)'; ic.style.background='rgba(255,255,255,.04)'; card.style.borderColor='var(--line)';
+        nameEl.textContent='No credential found';
+        metaEl.textContent='Try the sample: LGT-ORION7-DE';
+      }
+      vfResult.classList.add('show');
+    }
+    vfBtn.addEventListener('click', runVerify);
+    vfInput.addEventListener('keydown', function(e){ if(e.key==='Enter') runVerify(); });
+  }
+
+  // ---- faq accordion ----
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click', function(){
+      var open=q.getAttribute('aria-expanded')==='true';
+      var p=q.nextElementSibling;
+      q.setAttribute('aria-expanded', String(!open));
+      p.style.maxHeight = open ? '0px' : (p.scrollHeight+40)+'px';
+    });
+  });
+})();
+</script>
+<script>
+/* minting rig + verify/claim activation — self-contained */
+(function(){
+  var reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var stamp=document.getElementById('stamp'),plate=document.getElementById('plate'),rig=document.getElementById('rig'),
+      prefix=document.getElementById('prefix'),suffix=document.getElementById('suffix'),flash=document.getElementById('flash'),
+      glint=document.getElementById('glint'),status=document.getElementById('rigstatus'),
+      verifyBtn=document.getElementById('verifyBtn'),replayBtn=document.getElementById('replayBtn'),claimYours=document.getElementById('claimYours'),
+      verifyBg=document.getElementById('verifyBg'),mStart=document.getElementById('mStart'),mLabel=document.getElementById('mLabel'),
+      vmX=document.getElementById('vmX'),scanline=document.getElementById('scanline'),fring=document.getElementById('fring');
+  if(!rig||!stamp||!plate)return;
+  var ALPHA="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",PREFIX_X="33%",SUFFIX_X="73%",HOVER=-100,presented=false;
+  function sleep(ms){return new Promise(function(r){setTimeout(r,reduced?Math.min(ms,110):ms);});}
+  function mintId(){var s="";for(var i=0;i<6;i++)s+=ALPHA[Math.floor(Math.random()*ALPHA.length)];return s;}
+  function drop(){stamp.style.transition='transform .19s cubic-bezier(.62,0,.9,.18), left .5s cubic-bezier(.5,.05,.2,1)';stamp.style.transform='translate(-50%,0)';}
+  function lift(){stamp.style.transition='transform .42s cubic-bezier(.18,.86,.24,1.08), left .5s cubic-bezier(.5,.05,.2,1)';stamp.style.transform='translate(-50%,'+HOVER+'px)';}
+  function moveTo(x){stamp.style.left=x;}
+  function showSlots(){suffix.innerHTML='';for(var i=0;i<6;i++){var d=document.createElement('span');d.className='slot';suffix.appendChild(d);}}
+  function strikeFx(){
+    if(reduced)return;
+    stamp.classList.add('squash','hot');
+    flash.style.transition='none';
+    flash.style.background='radial-gradient(circle at '+stamp.style.left+' 50%,rgba(255,251,236,.95),rgba(255,224,150,.32) 42%,transparent 68%)';
+    flash.style.opacity='.95';
+    rig.classList.remove('shake');void rig.offsetWidth;rig.classList.add('shake');
+    var rr=rig.getBoundingClientRect(),sr=stamp.getBoundingClientRect();
+    var cx=(sr.left+sr.width/2)-rr.left,cy=rig.clientHeight-135;
+    for(var i=0;i<9;i++){(function(){
+      var b=document.createElement('div');b.className='burst';rig.appendChild(b);b.style.left=cx+'px';b.style.top=cy+'px';
+      var ang=(-0.5-Math.random())*Math.PI,dist=20+Math.random()*38;
+      requestAnimationFrame(function(){b.style.transition='transform .52s cubic-bezier(.2,.7,.3,1),opacity .52s';
+        b.style.transform='translate('+(Math.cos(ang)*dist*(Math.random()<.5?-1:1))+'px,'+(Math.sin(ang)*dist)+'px)';b.style.opacity='0';});
+      setTimeout(function(){b.remove();},540);
+    })();}
+    setTimeout(function(){flash.style.transition='opacity .26s ease';flash.style.opacity='0';stamp.classList.remove('squash','hot');},70);
+  }
+  async function init(){
+    stamp.style.transition='none';stamp.style.left=PREFIX_X;stamp.style.transform='translate(-50%,'+HOVER+'px)';suffix.innerHTML='';
+    await sleep(550);
+    status.textContent='Stamping your reserved company…';
+    drop(); await sleep(reduced?110:190); strikeFx(); prefix.classList.add('show'); showSlots();
+    await sleep(reduced?100:130);
+    lift(); await sleep(reduced?110:440);
+    moveTo(SUFFIX_X); await sleep(reduced?110:560);
+    status.innerHTML='Reserved for you — ready to claim. Its cell ID is struck the moment you verify.';
+    presented=true; verifyBtn.classList.remove('is-hidden'); verifyBtn.classList.add('pulse');
+  }
+  function openVerify(){verifyBtn.classList.remove('pulse');verifyBg.classList.add('show');}
+  function setMv(name){document.querySelectorAll('#mStage .mv').forEach(function(m){m.classList.toggle('on',m.getAttribute('data-mv')===name);});}
+  function dotOn(i){var d=document.getElementById('d'+i);if(d)d.classList.add('on');}
+  async function runVerify(){
+    mStart.classList.add('is-hidden');
+    setMv('id');mLabel.textContent='Reading your document…';
+    scanline.classList.remove('go');void scanline.offsetWidth;scanline.classList.add('go');
+    await sleep(reduced?300:1150); dotOn(0);
+    setMv('face');mLabel.textContent='Confirming a live person…';
+    fring.classList.remove('go');void fring.offsetWidth;fring.classList.add('go');
+    await sleep(reduced?300:1200); dotOn(1);
+    setMv('load');mLabel.textContent='Matching to records…';
+    await sleep(reduced?300:1100); dotOn(2);
+    setMv('done');mLabel.textContent='Identity verified ✓';
+    await sleep(reduced?260:700);
+    closeVerify(true);
+  }
+  function closeVerify(verified){verifyBg.classList.remove('show');if(verified){setTimeout(claim,260);}else{verifyBtn.classList.add('pulse');}}
+  async function claim(){
+    verifyBtn.classList.add('is-hidden');
+    status.textContent='Identity verified. Striking your cell ID…';
+    drop(); await sleep(reduced?110:190); strikeFx();
+    await sleep(reduced?130:210);
+    lift();
+    var id=mintId(); await sleep(reduced?100:150);
+    suffix.innerHTML='';
+    for(var i=0;i<id.length;i++){
+      var sp=document.createElement('span');sp.className='ch';sp.textContent=id[i];suffix.appendChild(sp);
+      sp.style.animation=reduced?'none':'chIn .32s cubic-bezier(.2,.9,.3,1.1) forwards';sp.style.animationDelay=(i*0.05)+'s';
+      if(reduced)sp.style.opacity='1';
+    }
+    if(!reduced){glint.classList.remove('sweep');void glint.offsetWidth;setTimeout(function(){glint.classList.add('sweep');},id.length*50+40);}
+    await sleep(reduced?120:id.length*50+440);
+    status.innerHTML='Claimed ✓ — certificate issued. &nbsp;LEGIT SERIES LLC · '+id;status.classList.add('live');
+    if(claimYours)claimYours.classList.remove('is-hidden');
+    if(replayBtn)replayBtn.classList.remove('is-hidden');
+  }
+  function resetAll(){
+    status.classList.remove('live');prefix.classList.remove('show');suffix.innerHTML='';presented=false;
+    verifyBtn.classList.add('is-hidden');replayBtn.classList.add('is-hidden');if(claimYours)claimYours.classList.add('is-hidden');
+    ['d0','d1','d2'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('on');});
+    setMv('id');mLabel.textContent='Government ID — passport, license, or ID card';mStart.classList.remove('is-hidden');
+    status.textContent='Loading your reserved company…';init();
+  }
+  if(verifyBtn)verifyBtn.addEventListener('click',openVerify);
+  if(mStart)mStart.addEventListener('click',runVerify);
+  if(vmX)vmX.addEventListener('click',function(){closeVerify(false);});
+  if(verifyBg)verifyBg.addEventListener('click',function(e){if(e.target===verifyBg)closeVerify(false);});
+  if(replayBtn)replayBtn.addEventListener('click',resetAll);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&verifyBg.classList.contains('show'))closeVerify(false);});
+  init();
+})();
+</script>
+<script>
+(function(){var b=document.getElementById('anCopy'),t=document.getElementById('anPromptText');
+if(b&&t){b.addEventListener('click',function(){var s=t.textContent.replace(/^#[^\n]*\n/,'').trim();
+try{navigator.clipboard.writeText(s);}catch(e){}b.textContent='Copied \u2713';setTimeout(function(){b.textContent='Copy';},1600);});}})();
+</script>
+<!-- Bridge the genie's hand-off (#access) to v3's Start-free funnel -->
+<script>
+(function(){
+  function openStart(){var s=document.querySelector('[data-start]');if(s)s.click();}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(a&&/#access$/.test(a.getAttribute('href')||'')){e.preventDefault();openStart();}
+  },true);
+  if(location.hash==='#access')setTimeout(openStart,300); // arriving from a lander's genie
+})();
+</script>
+<!-- Ask Legit \u2014 pre-auth conversational helper (advise-only; hands off to the human-auth flow) -->
+<script src="genie.js" defer></script>
+</body>
+</html>
