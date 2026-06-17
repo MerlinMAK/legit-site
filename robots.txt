@@ -1,0 +1,5 @@
+# robots.txt for Legit — https://getlegit.com/
+User-agent: *
+Allow: /
+
+Sitemap: https://getlegit.com/sitemap.xml
