@@ -117,6 +117,14 @@
         candor: "If you're a solo founder operating in one state with no investors, your home state is often simpler and cheaper than Delaware. We'll say so.",
       };
     },
+    ca_franchise_tax: function () {
+      return {
+        headline: "California's $800 franchise tax can still apply",
+        body: "If you operate from California, the Franchise Tax Board can charge its $800/yr minimum franchise tax on an entity it considers to be doing business in California — and it treats an entity managed by a California resident as doing business even if it never transacts. It's per entity, and the first-year grace period has expired.",
+        not_fee: "That's a tax you'd owe California directly — not a Legit fee. A free protected series doesn't avoid it if you run it from CA.",
+        candor: "We'd rather flag it than let it surprise you. Whether it hits your exact setup is fact-specific — check with a CA tax pro. Not tax advice.",
+      };
+    },
   };
 
   // ── content corpus → intent router (offline brain) ──────────────────────────
@@ -132,7 +140,7 @@
       return '<div class="lg-tier"><div class="lg-tier-h"><b>' + esc(t.label) + "</b><span>" + (t.price === 0 ? "$0" : usd(t.price)) + " <i>" + esc(t.per) + "</i></span></div><p>" + esc(t.line) + "</p></div>";
     }).join("");
     return {
-      html: "<b>All in, no surprises:</b>" + tiers + '<p class="lg-candor">' + esc(q.candor) + "</p>",
+      html: "<b>All in, no surprises:</b>" + tiers + '<p class="lg-candor">' + esc(q.candor) + "</p>" + '<p class="lg-candor">📍 <b>California:</b> the $800/yr state franchise tax may apply even to a non-transacting entity — a state tax, not a Legit fee.</p>',
       cta: { label: "Start free →", href: ACCESS },
     };
   }
@@ -177,11 +185,20 @@
   function rJurisdiction() {
     var n = TOOLS.nexus_explainer();
     return {
-      html: "<b>Why Delaware series?</b> A protected series inside our master Series LLC costs <b>$0</b> in state fees and is off the public record — distinctly named, formed in minutes.<br><br>" + esc(n.body) + '<p class="lg-candor">' + esc(n.candor) + "</p>",
+      html: "<b>Why Delaware series?</b> A protected series inside our master Series LLC costs <b>$0</b> in state fees and is off the public record — distinctly named, formed in minutes.<br><br>" + esc(n.body) + '<p class="lg-candor">' + esc(n.candor) + "</p>" + '<p class="lg-candor">📍 <b>California</b> is the big exception: its tax board treats an entity managed by a CA resident as doing business and bills $800/yr even with zero activity — per entity.</p>',
       cta: { label: "Start free →", href: ACCESS },
       disclaimer: true,
     };
   }
+  function rCA() {
+    var c = TOOLS.ca_franchise_tax();
+    return {
+      html: "<b>" + esc(c.headline) + "</b><br>" + esc(c.body) + "<br><br>" + esc(c.not_fee) + '<p class="lg-candor">' + esc(c.candor) + "</p>",
+      cta: { label: "Start free anyway →", href: ACCESS },
+      disclaimer: true,
+    };
+  }
+
   function rHuman() {
     return {
       html: "Nothing irreversible happens without a verified human. Tools that <b>read or prepare</b> run on their own; anything that <b>forms an entity, moves money, or revokes</b> returns a short-lived link for a human to authorize — then it executes. The chat is never the authorization.<br><br>That's the line that makes a Legit company <b>accountable</b>, and what gets agents unblocked on the open web.",
@@ -232,6 +249,7 @@
 
   // intent matching: order matters (specific → general)
   var INTENTS = [
+    { re: /\b(california|californian|\$?\s?800|franchise tax|\bftb\b)\b/i, fn: rCA },
     { re: /\b(instant|protected|free)\b.*\b(vs|or|versus)\b|\b(vs|versus)\b.*\bstandalone\b|\bcompar|which (one|fits|plan|should)|registered (series|vs)/i, fn: rCompare },
     { re: /\b(ssn|itin|international|non[- ]?u\.?s|foreign|outside the (us|u\.s)|ein)\b/i, fn: rEin },
     { re: /\b(do i (even )?need|need an llc|necessary|too early|worth it)\b/i, fn: rNeedLLC },
@@ -255,6 +273,7 @@
     { label: "Do I even need an LLC yet?", fn: rNeedLLC },
     { label: "What does it cost, all in?", fn: rQuote },
     { label: "Can my AI agent form & run this?", fn: rAgent },
+    { label: "I'm in California — what's the catch?", fn: rCA },
   ];
 
   function route(q) {
@@ -489,6 +508,7 @@
       "<h5>Ready when you are</h5>" +
       "<div style=\"font-size:13px;color:var(--dim,#8B94A8)\">" + summary + "</div>" +
       '<div class="lg-flow">An AI helped you decide → <b>a verified human signs</b> → the system files.</div>';
+    box.innerHTML += '<div class="lg-disc">📍 California? The $800/yr CA franchise tax may apply even with no activity — a state tax, not a Legit fee. You can still continue.</div>';
     var a = el("a", "lg-cta", "Continue — you sign off →");
     a.href = ACCESS;
     a.style.marginTop = "0";
