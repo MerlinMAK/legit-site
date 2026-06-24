@@ -135,22 +135,26 @@
   .legal{font-size:.72rem;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;color:var(--faint)}
   @media(max-width:1024px){.hero{overflow:hidden}.final{overflow:hidden}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* self-serve additions */
+  .prod3{grid-template-columns:repeat(3,1fr)}@media(max-width:820px){.prod3{grid-template-columns:1fr}}
+  .steps.spine{grid-template-columns:repeat(3,1fr)}@media(max-width:680px){.steps.spine{grid-template-columns:1fr}}
+  .preview-note{font-family:var(--mono);font-size:.78rem;color:var(--seal);text-align:center;margin-top:20px}
+  .pcard .pprice b{font-size:1.15rem}
 </style>
 </head>
 <body>
 
-<div class="topbar"><b>Now onboarding design partners</b> — the 30-day Accountable Operator pack. <a href="#access">Book a demo →</a></div>
+<div class="topbar"><b>Sandbox preview</b> — the cryptography is real; formation, KYC &amp; payments are simulated. <a href="https://api.getlegit.com/app">Start free →</a></div>
 
 <nav><div class="wrap nav">
   <a href="./" class="brand"><span class="seal">✓</span>Legit</a>
   <div class="nav-links">
+    <a href="for-founders/">For founders</a>
     <a href="for-agents/">For agents</a>
     <a href="for-enterprise/">For enterprises</a>
-    <a href="for-partners/">For partners</a>
-    <a href="try/">Try it live</a>
     <a href="#products">Pricing</a>
     <a href="https://api.getlegit.com/app">Sign in</a>
-    <a href="#access" class="btn btn-primary btn-sm">Book a demo</a>
+    <a href="https://api.getlegit.com/app" class="btn btn-primary btn-sm">Start free</a>
   </div>
 </div></nav>
 
@@ -158,15 +162,15 @@
 <header class="hero"><div class="wrap hero-grid">
   <div>
     <span class="eyebrow">Accountable identity for AI agents</span>
-    <h1>Get your agents <span class="v">recognized</span>, <span class="g">paid</span>, and cleared to do business.</h1>
-    <p class="lead">Legit puts a <strong>verified human</strong> and a <strong>real, serveable entity</strong> behind every agent — so the gates that block them, and the buyers that vet you, get a cryptographic answer to <strong>“who's accountable?”</strong></p>
+    <h1>Give your agent an <span class="v">accountable identity</span> in minutes.</h1>
+    <p class="lead">Sign up, create a <strong>free Delaware protected series</strong>, register your agent's own public key, and mint a token it uses over MCP. <strong>No biometric KYC to start</strong> — and a verified human still approves what matters, with an offline-verifiable receipt of exactly what was approved.</p>
     <p class="doctrine">Private to the world. Accountable to the few who require it.</p>
     <div class="hero-cta">
-      <a href="#access" class="btn btn-primary">Book a 20-min demo →</a>
+      <a href="https://api.getlegit.com/app" class="btn btn-primary">Start free →</a>
       <a href="try/" class="btn btn-ghost">Try it live — no sign-up →</a>
     </div>
     <div class="trust">
-      <span><span class="ck">✓</span> Rides Web Bot Auth &amp; the card networks</span>
+      <span><span class="ck">✓</span> Free to start · no biometric KYC</span>
       <span><span class="ck">✓</span> Verified human at the root</span>
       <span><span class="ck">✓</span> Offline-verifiable · no PII</span>
     </div>
@@ -179,7 +183,7 @@
     </div>
     <div class="cred-row"><span class="k">Agent</span><span class="vv">orion-7 · agent_7f3a</span></div>
     <div class="cred-row"><span class="k">Operator entity</span><span class="vv"><span class="ok">✓ verified</span> · good standing</span></div>
-    <div class="cred-row"><span class="k">Human at root</span><span class="vv"><span class="ok">✓ verified</span> · <span class="priv">private</span></span></div>
+    <div class="cred-row"><span class="k">Human at root</span><span class="vv"><span class="ok">✓ key-bound</span> · <span class="priv">private</span></span></div>
     <div class="cred-row"><span class="k">Last action</span><span class="vv"><span class="ok">✓ human-authorized</span></span></div>
     <div class="cred-row"><span class="k">Disclosure</span><span class="vv priv">valid legal process only</span></div>
     <div class="cred-foot"><span class="hl">LGT</span>&lt;ORION7&lt;&lt;OPERATOR&lt;&lt;<span class="hl">VERIFIED</span><br>receipt&nbsp;<span class="hl">ed25519:9R+Bsmbl…o3iY</span> · verify offline</div>
@@ -213,13 +217,15 @@
 
 <!-- HOW IT WORKS -->
 <section class="sec" id="how" style="padding-top:0"><div class="wrap">
-  <div class="sec-head center" style="text-align:center"><span class="sec-eyebrow">How it works</span><h2>From anonymous bot to accountable operator.</h2></div>
-  <div class="steps">
-    <div class="step"><div class="n">01</div><h4>Bind</h4><p>Bind the agent to a KYC-verified human and a real, serveable entity it operates as.</p></div>
-    <div class="step"><div class="n">02</div><h4>Credential</h4><p>The agent gets a verifiable operator credential (Ed25519 / Web Bot Auth) — recognized, not blocked.</p></div>
-    <div class="step"><div class="n">03</div><h4>Authorize</h4><p>High-stakes actions route to the human; Legit returns a signed “a named human approved this exact act” receipt.</p></div>
-    <div class="step"><div class="n">04</div><h4>Verify</h4><p>Anyone checks it offline at <span class="mono">/verify</span> — entity, standing, accountable root — with no PII.</p></div>
+  <div class="sec-head center" style="text-align:center"><span class="sec-eyebrow">How it works</span><h2>From sign-up to an accountable agent — in three steps.</h2><p>The home mirrors the dashboard. This is the whole flow.</p></div>
+  <div class="steps spine">
+    <div class="step"><div class="n">01 · ~20 sec</div><h4>Sign up</h4><p>Email and a passkey. No biometric KYC to start.</p></div>
+    <div class="step"><div class="n">02</div><h4>Create a free entity</h4><p>A Delaware protected series, key-bound to your account — with a registry-signed certificate and a live Web Pass (the credential above).</p></div>
+    <div class="step"><div class="n">03</div><h4>Register your key, mint a token</h4><p>Register your agent's <strong>own</strong> public key with proof-of-control, then mint a per-entity token it presents over MCP.</p></div>
   </div>
+  <p style="text-align:center;margin-top:18px;color:var(--dim);font-size:.96rem;max-width:60ch;margin-left:auto;margin-right:auto">Then, for anything with weight: the agent prepares, a <strong style="color:var(--ink)">verified human approves out of band</strong>, and Legit signs an offline-verifiable receipt of <em>exactly</em> what was approved. Revoke recognition anytime — the entity stays as the accountable party.</p>
+  <p style="text-align:center;margin-top:22px"><a href="https://api.getlegit.com/app" class="btn btn-primary">Start free →</a></p>
+  <p class="preview-note">In this preview the cryptography is real; formation, KYC &amp; payments are simulated — you won't be charged and no entity is filed yet.</p>
 </div></section>
 
 <!-- ENTERPRISE / CONTROL MAPPING -->
@@ -235,7 +241,8 @@
       <tr><td class="q">Can we verify it without trusting you?</td><td class="a">Yes — Ed25519-signed, offline, no PII, no callback.</td></tr>
     </tbody>
   </table>
-  <p style="text-align:center;margin-top:20px"><a href="#access" class="btn btn-ghost">Get the one-page control mapping →</a></p>
+  <p style="text-align:center;margin-top:20px"><a href="#access" class="btn btn-primary">Book a demo →</a> <a href="#access" class="btn btn-ghost">Get the one-page control mapping</a></p>
+  <p style="text-align:center;margin-top:12px;font-size:.82rem;color:var(--faint);font-family:var(--mono)">The Accountable Operator pilot — a real entity + KYC'd human at root, the human-authorization relay, and this control mapping — is a 30-day design-partner engagement.</p>
 </div></section>
 
 <!-- HONEST BOUNDARIES -->
@@ -248,35 +255,47 @@
     <div><b>Not a guarantee of recognition.</b> Platforms decide whether to honor a credential. Integration, not endorsement.</div>
     <div><b>Not a doxxing service.</b> The human is private — disclosed only on valid legal process, never to the public or the platform.</div>
     <div><b>Not a law or accounting firm.</b> We provide verification and formation services; nothing here is legal or tax advice.</div>
+    <div><b>Not live for real money yet.</b> This is a preview — the cryptography is real, but formation, KYC, and payments are simulated until we flip vendors live. Nothing is filed and no one is charged.</div>
   </div>
 </div></section>
 
 <!-- PRODUCTS -->
 <section class="sec" id="products" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="sec-eyebrow">Two ways to start</span><h2>Recognition now. Accountability when it matters.</h2></div>
-  <div class="prod">
-    <div class="pcard">
-      <div class="ptag">Operator Credential</div>
-      <div class="pname">Get recognized</div>
-      <div class="pprice">For agents that keep getting blocked</div>
-      <ul><li>Verifiable operator credential (Web Bot Auth)</li><li>Accountable-human attestation bound to the key</li><li>Public /verify page · offline-verifiable</li><li>Revocable in one call</li></ul>
-      <a href="#access" class="btn btn-ghost" style="justify-content:center">Talk to us</a>
-    </div>
+  <div class="sec-head"><span class="sec-eyebrow">Pricing</span><h2>Start free. Grow when a counterparty needs more.</h2><p>One verified human can root many entities. Upgrade in-app when you need an EIN or a standalone entity.</p></div>
+  <div class="prod prod3">
     <div class="pcard feat">
-      <div class="ptag">Accountable Operator Pack</div>
-      <div class="pname">Pass the review · close the deal</div>
-      <div class="pprice"><b>$7,500</b> · 30-day design-partner pilot</div>
-      <ul><li>A real, serveable entity + KYC'd human at root</li><li>The human-authorization relay + signed receipts</li><li>The vendor-assessment control mapping (EU AI Act / Treasury / NIST)</li><li>Everything in Operator Credential</li></ul>
-      <a href="#access" class="btn btn-primary" style="justify-content:center">Book a demo →</a>
+      <div class="ptag">Free</div>
+      <div class="pname">$0<span style="font-size:.9rem;color:var(--dim)">/yr</span></div>
+      <div class="pprice">Delaware protected series · key-bound</div>
+      <ul><li>Key-bound to your account — no biometric KYC</li><li>Registry-signed certificate + live Web Pass</li><li>Register your agent's key (proof-of-control)</li><li>Mint per-entity agent tokens for MCP</li></ul>
+      <a href="https://api.getlegit.com/app" class="btn btn-primary" style="justify-content:center">Start free</a>
+    </div>
+    <div class="pcard">
+      <div class="ptag">Builder</div>
+      <div class="pname">$49<span style="font-size:.9rem;color:var(--dim)">/yr</span></div>
+      <div class="pprice">For builders shipping more than one agent</div>
+      <ul><li>Everything in Free</li><li>An EIN for your entity</li><li>Unlimited entities under one verified human</li><li>Facial KYC where banking requires it</li></ul>
+      <a href="https://api.getlegit.com/app" class="btn btn-ghost" style="justify-content:center">Start free, upgrade in-app</a>
+    </div>
+    <div class="pcard">
+      <div class="ptag">Standalone</div>
+      <div class="pname">$299<span style="font-size:.9rem;color:var(--dim)">/yr</span> <span style="font-size:.78rem;color:var(--faint)">+ state fee at cost</span></div>
+      <div class="pprice">When a counterparty needs more than a series</div>
+      <ul><li>A standalone state-registered entity</li><li>Certificate filed in your name</li><li>State filing fee shown at cost, never marked up</li><li>Everything in Builder</li></ul>
+      <a href="https://api.getlegit.com/app" class="btn btn-ghost" style="justify-content:center">Start free, upgrade in-app</a>
     </div>
   </div>
+  <p class="preview-note">Prices are real; in this preview, formation, KYC &amp; payment are simulated — you won't be charged and no entity is filed yet.</p>
+  <p style="text-align:center;margin-top:10px;font-size:.78rem;color:var(--faint);font-family:var(--mono)">California residents: the state's $800/yr franchise tax may apply even to a non-transacting entity — a CA tax, not a Legit fee. · Need a high-touch enterprise pilot? <a href="#enterprise" style="color:var(--verify)">See for enterprises →</a></p>
 </div></section>
 
 <!-- FINAL -->
 <section class="final" id="access"><div class="wrap">
-  <h2>Make your agent <span class="g">answerable.</span></h2>
-  <p>If a stalled deal or a blocked agent is hanging on “who's accountable?”, the answer takes one demo.</p>
-  <form id="demo-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate style="max-width:440px;margin:18px auto 0;display:flex;flex-direction:column;gap:10px">
+  <h2>Make your agent <span class="g">answerable.</span> Start free.</h2>
+  <p>Create a free accountable entity and mint your agent's token in minutes — no biometric KYC, nothing to install.</p>
+  <p style="position:relative"><a href="https://api.getlegit.com/app" class="btn btn-primary">Start free →</a></p>
+  <p style="position:relative;margin-top:30px;font-size:.92rem;color:var(--dim)">Enterprise buyer who needs the vendor-assessment artifact? Book a demo:</p>
+  <form id="demo-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate style="max-width:440px;margin:14px auto 0;display:flex;flex-direction:column;gap:10px">
     <input name="email" type="email" required placeholder="work email" autocomplete="email" aria-label="Work email" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
     <input name="context" placeholder="agent, enterprise, partner, or repo?" aria-label="What are you building" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
     <button type="submit" class="btn btn-primary" style="justify-content:center">Book a 20-min demo →</button>
@@ -286,10 +305,6 @@
   <p class="mono" id="verify" style="margin-top:16px;font-size:.74rem;color:var(--faint)">Public verification · no login · no PII · disclosed only on valid legal process</p>
 </div></section>
 
-<!-- consumer / builder path: the free-LLC funnel -->
-<section style="border-top:1px solid var(--line);padding:30px 0;text-align:center">
-  <div class="wrap"><span class="mono" style="font-size:.84rem;color:var(--dim)">Building solo or just shipping a side-project? Start free — <a href="for-repos/" style="color:var(--verify)">a real LLC for your repo →</a></span><br><span class="mono" style="font-size:.72rem;color:var(--faint);display:inline-block;margin-top:8px">California residents: the state's $800/yr franchise tax may apply even to a non-transacting entity — a CA tax, not a Legit fee.</span></div>
-</section>
 <footer><div class="wrap">
   <div class="foot-top">
     <div class="brand" style="font-size:1.1rem"><span class="seal" style="width:23px;height:23px">✓</span>Legit</div>
