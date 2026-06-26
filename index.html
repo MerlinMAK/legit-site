@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Legit — Accountable Identity for AI Agents</title>
+<title>Legit — The accountability layer for AI agents</title>
 <meta name="description" content="Put a verified human and a real, serveable entity behind every AI agent, so gates and buyers get a cryptographic answer to who's accountable. No PII." />
 <!-- legit:seo -->
 <link rel="canonical" href="https://getlegit.com/" />
@@ -16,7 +16,7 @@
 <link rel="manifest" href="/site.webmanifest" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Legit" />
-<meta property="og:title" content="Legit — Accountable Identity for AI Agents" />
+<meta property="og:title" content="Legit — The accountability layer for AI agents" />
 <meta property="og:description" content="Put a verified human and a real, serveable entity behind every AI agent, so gates and buyers get a cryptographic answer to who's accountable. No PII." />
 <meta property="og:url" content="https://getlegit.com/" />
 <meta property="og:image" content="https://getlegit.com/og-default.png" />
@@ -24,7 +24,7 @@
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Legit — accountable identity for AI agents" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Legit — Accountable Identity for AI Agents" />
+<meta name="twitter:title" content="Legit — The accountability layer for AI agents" />
 <meta name="twitter:description" content="Put a verified human and a real, serveable entity behind every AI agent, so gates and buyers get a cryptographic answer to who's accountable. No PII." />
 <meta name="twitter:image" content="https://getlegit.com/og-default.png" />
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "Legit", "url": "https://getlegit.com/", "logo": "https://getlegit.com/icon-512.png", "description": "Accountable identity for AI agents \u2014 a verified human and a real, serveable entity behind every agent."}, {"@type": "WebSite", "name": "Legit", "url": "https://getlegit.com/"}]}</script>
@@ -140,6 +140,20 @@
   .steps.spine{grid-template-columns:repeat(3,1fr)}@media(max-width:680px){.steps.spine{grid-template-columns:1fr}}
   .preview-note{font-family:var(--mono);font-size:.78rem;color:var(--seal);text-align:center;margin-top:20px}
   .pcard .pprice b{font-size:1.15rem}
+  /* realign: npx command box, rooted pill, rooted-vs-unrooted binary */
+  .cmd{display:flex;align-items:center;gap:10px;max-width:460px;background:#05070c;border:1px solid var(--line2);border-radius:12px;padding:13px 15px;font-family:var(--mono);font-size:1rem;margin:0 0 18px}
+  .cmd .pr{color:var(--verified)}.cmd code{flex:1;color:var(--ink)}
+  .cmd button{background:var(--bg3);border:1px solid var(--line2);color:var(--dim);border-radius:8px;padding:6px 11px;font:.8rem var(--body);cursor:pointer}.cmd button:hover{color:var(--ink)}
+  .cmd .uc{font-family:var(--body)}
+  .cred-rooted{display:flex;align-items:center;gap:8px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.4);color:var(--verified);border-radius:9px;padding:7px 11px;font:600 .68rem var(--mono);letter-spacing:.05em;margin-bottom:14px}
+  .cred-rooted .d{width:7px;height:7px;border-radius:50%;background:var(--verified);box-shadow:0 0 8px var(--verified)}
+  .binary{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:680px){.binary{grid-template-columns:1fr}}
+  .bcard{border:1px solid var(--line);border-radius:15px;padding:22px;background:var(--bg2)}
+  .bcard.ro{border-color:rgba(52,211,153,.4)}
+  .bcard h3{font-family:var(--display);font-size:1.05rem;margin-bottom:3px}.bcard.un h3{color:var(--bad)}.bcard.ro h3{color:var(--verified)}
+  .bcard .ld{color:var(--dim);font-size:.9rem;margin-bottom:14px}
+  .bcard ul{list-style:none;display:grid;gap:9px}.bcard li{display:flex;gap:9px;font-size:.94rem;color:var(--ink)}
+  .bcard.un li::before{content:"✕";color:var(--bad)}.bcard.ro li::before{content:"✓";color:var(--verified)}
 </style>
 </head>
 <body>
@@ -161,14 +175,16 @@
 <!-- HERO -->
 <header class="hero"><div class="wrap hero-grid">
   <div>
-    <span class="eyebrow">Accountable identity for AI agents</span>
-    <h1>Give your agent an <span class="v">accountable identity</span> in minutes.</h1>
-    <p class="lead">Sign up, create a <strong>free Delaware protected series</strong>, register your agent's own public key, and mint a token it uses over MCP. <strong>No biometric KYC to start</strong> — and a verified human still approves what matters, with an offline-verifiable receipt of exactly what was approved.</p>
+    <span class="eyebrow">The accountability layer for AI agents</span>
+    <h1>Give your agent its <span class="g">papers</span> — so the gates stop slamming.</h1>
+    <p class="lead">A verified human and a real, serveable US entity at your agent's root — so <strong>Cloudflare, the card networks, and enterprise buyers</strong> all get one cryptographic answer to who's accountable. No PII.</p>
     <p class="doctrine">Private to the world. Accountable to the few who require it.</p>
     <div class="hero-cta">
       <a href="https://api.getlegit.com/app" class="btn btn-primary">Start free →</a>
       <a href="try/" class="btn btn-ghost">Try it live — no sign-up →</a>
     </div>
+    <div class="cmd"><span class="pr">$</span><code>npx legit init</code><button type="button" onclick="navigator.clipboard.writeText('npx legit init');var b=this;b.textContent='Copied ✓';setTimeout(function(){b.textContent='Copy'},1500)">Copy</button></div>
+    <p class="doctrine" style="margin:-10px 0 22px">One free entity per verified human. <span style="color:var(--verified)">No anonymous shells, ever.</span></p>
     <div class="trust">
       <span><span class="ck">✓</span> Free to start · no biometric KYC</span>
       <span><span class="ck">✓</span> Verified human at the root</span>
@@ -178,9 +194,10 @@
   <!-- signature: accountable operator credential -->
   <div class="cred"><div class="cred-in">
     <div class="cred-top">
-      <div class="cred-brand">LEGIT · ACCOUNTABLE OPERATOR<b>Verified Agent Credential</b></div>
+      <div class="cred-brand">LEGIT · ACCOUNTABLE OPERATOR<b>Accountable Operator Credential</b></div>
       <div class="cred-status"><span class="dot"></span>LEGIT ✓</div>
     </div>
+    <div class="cred-rooted"><span class="d"></span>ROOTED — VERIFIED HUMAN AT THE ROOT</div>
     <div class="cred-row"><span class="k">Agent</span><span class="vv">orion-7 · agent_7f3a</span></div>
     <div class="cred-row"><span class="k">Operator entity</span><span class="vv"><span class="ok">✓ verified</span> · good standing</span></div>
     <div class="cred-row"><span class="k">Human at root</span><span class="vv"><span class="ok">✓ key-bound</span> · <span class="priv">private</span></span></div>
@@ -195,13 +212,30 @@
   <b>Works with</b><span><span class="ck">✓</span> Web Bot Auth / RFC 9421</span><span><span class="ck">✓</span> Visa &amp; Mastercard agentic checkout</span><span><span class="ck">✓</span> MCP &amp; A2A</span><span style="color:var(--faint)">— integration, not endorsement</span>
 </div></section>
 
-<!-- PROBLEM -->
+<!-- ROOTED vs UNROOTED -->
 <section class="sec"><div class="wrap">
-  <div class="sec-head"><span class="sec-eyebrow">The wall</span><h2>Your agent is blocked, unpaid, or stuck on slide 40.</h2><p>The gates the agent economy runs on all ask the same question — and an unaccountable agent can't answer it.</p></div>
-  <div class="grid3">
-    <div class="card bad"><div class="ic" aria-hidden="true">🚫</div><h3>Blocked as a bot</h3><p>Cloudflare, Akamai, and the anti-bot stacks challenge or 403 your agent. A key gets you recognized — but only if there's something accountable behind it.</p></div>
-    <div class="card bad"><div class="ic" aria-hidden="true">💳</div><h3>Can't transact</h3><p>Visa and Mastercard's agentic checkout require a verified agent and proof a real human authorized the purchase. No proof, no payment.</p></div>
-    <div class="card bad"><div class="ic" aria-hidden="true">📋</div><h3>Can't pass the review</h3><p>“Who's accountable for this agent? Who's serveable if it acts wrong?” is now a standard line in enterprise vendor assessments. “It runs under our API key” stalls the deal.</p></div>
+  <div class="sec-head"><span class="sec-eyebrow">The fork</span><h2>The web is splitting in two.</h2><p>Rooted agents do business. Unrooted bots get locked out.</p></div>
+  <div class="binary">
+    <div class="bcard un">
+      <h3>Unrooted</h3>
+      <p class="ld">Anonymous. No human behind it. No one to serve.</p>
+      <ul>
+        <li>403'd by Cloudflare &amp; the anti-bot stacks</li>
+        <li>Declined at Visa/Mastercard agentic checkout</li>
+        <li>Stalls the enterprise vendor review</li>
+        <li>About to be locked out of the recognized web</li>
+      </ul>
+    </div>
+    <div class="bcard ro">
+      <h3>Rooted</h3>
+      <p class="ld">A verified human + a real entity at its root. Provable.</p>
+      <ul>
+        <li>Recognized, paid, cleared to transact</li>
+        <li>A real, serveable US entity + live Web Pass</li>
+        <li>Hands the buyer a verifiable answer, not a meeting</li>
+        <li>Accountable to the law — without doxxing the human</li>
+      </ul>
+    </div>
   </div>
 </div></section>
 
@@ -295,7 +329,7 @@
   <p>Create a free accountable entity and mint your agent's token in minutes — no biometric KYC, nothing to install.</p>
   <p style="position:relative"><a href="https://api.getlegit.com/app" class="btn btn-primary">Start free →</a></p>
   <p style="position:relative;margin-top:30px;font-size:.92rem;color:var(--dim)">Enterprise buyer who needs the vendor-assessment artifact? Book a demo:</p>
-  <form id="demo-form" action="https://formspree.io/f/REPLACE_ME" method="POST" novalidate style="max-width:440px;margin:14px auto 0;display:flex;flex-direction:column;gap:10px">
+  <form id="demo-form" action="mailto:hello@getlegit.com" method="POST" novalidate style="max-width:440px;margin:14px auto 0;display:flex;flex-direction:column;gap:10px">
     <input name="email" type="email" required placeholder="work email" autocomplete="email" aria-label="Work email" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
     <input name="context" placeholder="agent, enterprise, partner, or repo?" aria-label="What are you building" style="background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:13px 15px;color:var(--ink);font-family:var(--body);font-size:1rem" />
     <button type="submit" class="btn btn-primary" style="justify-content:center">Book a 20-min demo →</button>
@@ -313,7 +347,7 @@
   <p class="legal">© 2026 Legit · accountable identity for AI agents. Legit provides identity verification and business-formation services and is not a law firm or accounting firm; nothing here is legal or tax advice. Identity verification is performed through our verification partner; a verified human at the root is not an endorsement of an agent's conduct. Web Bot Auth recognition depends on third parties that independently choose to honor it. Shielded, not hidden. Accountable, not anonymous.</p>
 </div></footer>
 
-<script>(function(){var f=document.getElementById('demo-form');if(!f)return;var ok=document.getElementById('demo-ok');function done(){f.style.display='none';if(ok)ok.style.display='block';try{window.plausible&&window.plausible('demo_submit');window.dataLayer&&window.dataLayer.push({event:'demo_submit'});}catch(e){}}f.addEventListener('submit',function(e){e.preventDefault();var em=(f.email.value||'').trim();if(!em){f.email.focus();return;}var ep=f.getAttribute('action')||'';if(ep.indexOf('REPLACE_ME')>-1){done();return;}fetch(ep,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)}).then(done).catch(done);});})();</script>
+<script>(function(){var f=document.getElementById('demo-form');if(!f)return;var ok=document.getElementById('demo-ok');function done(){f.style.display='none';if(ok)ok.style.display='block';try{window.plausible&&window.plausible('demo_submit');window.dataLayer&&window.dataLayer.push({event:'demo_submit'});}catch(e){}}f.addEventListener('submit',function(e){e.preventDefault();var em=(f.email.value||'').trim();if(!em){f.email.focus();return;}var ep=f.getAttribute('action')||'';if(ep.indexOf('mailto:')===0){var ctx=(f.context&&f.context.value||'').trim();window.location.href=ep+'?subject='+encodeURIComponent('Legit demo request')+'&body='+encodeURIComponent('Email: '+em+' · Context: '+ctx);done();return;}fetch(ep,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)}).then(done).catch(done);});})();</script>
 <!-- Ask Legit — pre-auth conversational helper -->
 <script src="genie.js" defer></script>
 
