@@ -1,0 +1,28 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:getlegit.com",
+  "verificationMethod": [
+    {
+      "id": "did:web:getlegit.com#registry",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:getlegit.com",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "2rusMRQYPrWnTjA9tqDDo0RFlXZCB_ssU47ZAEUOIb4",
+        "kid": "RZUyFaBNjYr-gGEDASRwWdyZxKI9t-rrFuEm6zOL-YU",
+        "alg": "EdDSA",
+        "use": "sig"
+      }
+    }
+  ],
+  "assertionMethod": [
+    "did:web:getlegit.com#registry"
+  ],
+  "authentication": [
+    "did:web:getlegit.com#registry"
+  ]
+}
