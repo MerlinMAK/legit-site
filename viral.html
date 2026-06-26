@@ -275,9 +275,9 @@
 from legit import WebPass
 agent = build_agent(...)
 agent.transport = WebPass(<span class="g">"wp_orion-labs"</span>).sign  <span class="c"># RFC 9421</span>`,
-    crew:`<span class="c"># crewai — root the crew to a verified human</span>
-from legit import rooted
-crew = rooted(Crew(agents=[...]), web_pass=<span class="g">"wp_orion-labs"</span>)
+    crew:`<span class="c"># crewai — make the crew legit (verified human at the root)</span>
+from legit import legit
+crew = legit(Crew(agents=[...]), web_pass=<span class="g">"wp_orion-labs"</span>)
 crew.kickoff()  <span class="c"># every request carries the credential</span>`
   };
   function snip(k,el){
